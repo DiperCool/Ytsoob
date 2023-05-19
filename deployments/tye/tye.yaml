@@ -1,0 +1,33 @@
+# https://github.com/dotnet/tye/tree/main/docs
+# https://github.com/dotnet/tye/blob/main/docs/reference/schema.md#environment-variables
+# https://www.daveabrock.com/2020/08/19/microservices-with-tye-1/
+# https://www.daveabrock.com/2020/08/27/microservices-with-tye-2/
+# https://github.com/dotnet/tye/tree/main/samples
+# https://devblogs.microsoft.com/dotnet/introducing-project-tye/
+
+name: tye-ecomerce
+containerEngine: docker
+registry: mehdihadeli
+
+services:
+
+- name: gateway
+  project: ../../src/ApiGateway/Ytsoob.ApiGateway/Ytsoob.ApiGateway.csproj
+  env_file:
+    - .env
+  bindings:
+  - port: 3010
+
+- name: identity-service
+  project: ../../src/Services/Identity/Ytsoob.Services.Identity.Api/Ytsoob.Services.Identity.Api.csproj
+  env_file:
+    - .env
+  bindings:
+  - port: 7000
+
+- name: post-service
+  project: ../../src/Services/Posts/Ytsoob.Services.Posts.Api/Ytsoob.Services.Posts.Api.csproj
+  env_file:
+    - .env
+  bindings:
+  - port: 8009

@@ -1,0 +1,23 @@
+{
+  "name": "Ytsoob-microservices",
+  "version": "1.0.0",
+  "description": "Ytsoob-microservices",
+  "scripts": {
+    "prepare": "husky install && dotnet tool restore && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v vs2019 -l ~/vsdbg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mehdihadeli/Ytsoob-microservices.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mehdihadeli/Ytsoob-microservices/issues"
+  },
+  "homepage": "https://github.com/mehdihadeli/Ytsoob-microservices#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "husky": "^8.0.3"
+  }
+}
