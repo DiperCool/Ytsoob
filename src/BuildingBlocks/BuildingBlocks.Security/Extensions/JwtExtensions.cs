@@ -117,7 +117,7 @@ public static class Extensions
         }
 
         services.AddTransient<IJwtService, JwtService>();
-        services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
         return services;
     }
 

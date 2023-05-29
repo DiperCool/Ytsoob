@@ -8,5 +8,5 @@ public record PostId : AggregateId
     {
     }
 
-    public static PostId Of(long value) => new PostId(value);
+    public static PostId Of(long value) => new(value);
 }

@@ -16,7 +16,7 @@ public class Content : Entity<ContentId>
         UpdateText(contentText);
     }
 
-    public Content()
+    protected Content()
     {
     }
 

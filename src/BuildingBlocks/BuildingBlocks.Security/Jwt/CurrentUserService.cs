@@ -4,12 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace BuildingBlocks.Security.Jwt;
 
-public class SecurityContextAccessor : ISecurityContextAccessor
+public class CurrentUserService : ICurrentUserService
 {
-    private readonly ILogger<SecurityContextAccessor> _logger;
+    private readonly ILogger<CurrentUserService> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public SecurityContextAccessor(IHttpContextAccessor httpContextAccessor, ILogger<SecurityContextAccessor> logger)
+    public CurrentUserService(IHttpContextAccessor httpContextAccessor, ILogger<CurrentUserService> logger)
     {
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -32,7 +32,7 @@ public class SecurityContextAccessor : ISecurityContextAccessor
         }
     }
 
-    public string JwtToken
+    public string? JwtToken
     {
         get { return _httpContextAccessor.HttpContext?.Request?.Headers["Authorization"]; }
     }

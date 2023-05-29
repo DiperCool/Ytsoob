@@ -36,19 +36,19 @@ public class CreatePostHandler : ICommandHandler<CreatePost, CreatePostResponse>
 {
     private IPostsDbContext _postsDbContext;
     private IMapper _mapper;
-    private ISecurityContextAccessor _securityContextAccessor;
-    public CreatePostHandler(IPostsDbContext postsDbContext, IMapper mapper, ISecurityContextAccessor securityContextAccessor)
+    private ICurrentUserService _currentUserService;
+    public CreatePostHandler(IPostsDbContext postsDbContext, IMapper mapper, ICurrentUserService currentUserService)
     {
         _postsDbContext = postsDbContext;
         _mapper = mapper;
-        _securityContextAccessor = securityContextAccessor;
+        _currentUserService = currentUserService;
     }
 
     public async Task<CreatePostResponse> Handle(CreatePost request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(request, nameof(request));
         var content = new Content(ContentId.Of(SnowFlakIdGenerator.NewId()), ContentText.Of(request.Content.ContentText));
-        var post = new Post(PostId.Of(request.Id), content);
+        var post = Post.Create(PostId.Of(request.Id), content);
         await _postsDbContext.Posts.AddAsync(post, cancellationToken);
         await _postsDbContext.SaveChangesAsync(cancellationToken);
         return new CreatePostResponse(_mapper.Map<PostDto>(post));

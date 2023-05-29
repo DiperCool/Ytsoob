@@ -10,10 +10,10 @@ using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Posts.Features.UpdatingTextPost.v1;
 
-public record UpdateTextPost(PostId PostId, string ContentText) : ITxUpdateCommand<UpdateTextPostResponse>;
+public record UpdatePostContent(PostId PostId, string ContentText) : ITxUpdateCommand<UpdatePostContentResponse>;
 
 
-public class UpdateTextPostValidator : AbstractValidator<UpdateTextPost>
+public class UpdateTextPostValidator : AbstractValidator<UpdatePostContent>
 {
     public UpdateTextPostValidator()
     {
@@ -22,28 +22,28 @@ public class UpdateTextPostValidator : AbstractValidator<UpdateTextPost>
 }
 
 
-public class UpdateTextPostHandler : ICommandHandler<UpdateTextPost, UpdateTextPostResponse>
+public class UpdateTextPostHandler : ICommandHandler<UpdatePostContent, UpdatePostContentResponse>
 {
     private IPostsDbContext _postsDbContext;
-    private ISecurityContextAccessor _securityContextAccessor;
+    private ICurrentUserService _currentUserService;
 
-    public UpdateTextPostHandler(IPostsDbContext postsDbContext, ISecurityContextAccessor securityContextAccessor)
+    public UpdateTextPostHandler(IPostsDbContext postsDbContext, ICurrentUserService currentUserService)
     {
         _postsDbContext = postsDbContext;
-        _securityContextAccessor = securityContextAccessor;
+        _currentUserService = currentUserService;
     }
 
-    public async Task<UpdateTextPostResponse> Handle(UpdateTextPost request, CancellationToken cancellationToken)
+    public async Task<UpdatePostContentResponse> Handle(UpdatePostContent request, CancellationToken cancellationToken)
     {
         Post? post = await _postsDbContext.Posts
             .Include(x => x.Content)
-            .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _securityContextAccessor.UserIdGuid, cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _currentUserService.UserIdGuid, cancellationToken: cancellationToken);
         if (post == null)
         {
             throw new NotFoundException("Post with this Id not found");
         }
 
         post.UpdateContentText(ContentText.Of(request.ContentText));
-        return new UpdateTextPostResponse();
+        return new UpdatePostContentResponse();
     }
 }

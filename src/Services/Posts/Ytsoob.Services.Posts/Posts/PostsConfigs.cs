@@ -7,7 +7,7 @@ namespace Ytsoob.Services.Posts.Posts;
 public class PostsConfigs : IModuleConfiguration
 {
     public const string Tag = "Post";
-    public const string ProductsPrefixUri = $"{SharedModulesConfiguration.PostModulePrefixUri}/posts";
+    public const string PostPrefixUri = $"{SharedModulesConfiguration.PostModulePrefixUri}/posts";
 
     public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
@@ -24,16 +24,18 @@ public class PostsConfigs : IModuleConfiguration
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var productsVersionGroup = endpoints.MapApiGroup(Tag).WithTags(Tag);
+        var postVersionGroup = endpoints.MapApiGroup(Tag).WithTags(Tag);
 
         // create a new sub group for each version
-        var productsGroupV1 = productsVersionGroup.MapGroup(ProductsPrefixUri).HasApiVersion(1.0);
+        var productsGroupV1 = postVersionGroup.MapGroup(PostPrefixUri).HasApiVersion(1.0);
 
         // create a new sub group for each version
 
         // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#route-groups
         // https://github.com/dotnet/aspnet-api-versioning/blob/main/examples/AspNetCore/WebApi/MinimalOpenApiExample/Program.cs
         productsGroupV1.MapCreatePostEndpoint();
+        productsGroupV1.MapUpdatePostEndpoint();
+
         return endpoints;
     }
 }
