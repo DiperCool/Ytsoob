@@ -44,6 +44,8 @@ public class UpdateTextPostHandler : ICommandHandler<UpdatePostContent, UpdatePo
         }
 
         post.UpdateContentText(ContentText.Of(request.ContentText));
+        _postsDbContext.Posts.Update(post);
+        await _postsDbContext.SaveChangesAsync(cancellationToken);
         return new UpdatePostContentResponse();
     }
 }

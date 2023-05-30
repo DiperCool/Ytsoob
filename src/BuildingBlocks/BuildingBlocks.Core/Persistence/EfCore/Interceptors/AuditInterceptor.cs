@@ -48,8 +48,8 @@ public class AuditInterceptor : SaveChangesInterceptor
         foreach (var entry in eventData.Context.ChangeTracker.Entries<IHaveCreator>())
         {
             if (entry.State != EntityState.Added) continue;
-            entry.CurrentValues[nameof(IHaveCreator.Created)] = now;
             entry.CurrentValues[nameof(IHaveCreator.CreatedBy)] = userId;
+            entry.CurrentValues[nameof(IHaveCreator.Created)] = now;
         }
 
         return base.SavingChangesAsync(eventData, result, cancellationToken);

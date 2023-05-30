@@ -13,6 +13,8 @@ services:
     build:
       context: ../../
       dockerfile: src/ApiGateway/dev.Dockerfile
+    ports:
+      - 3010:3010
     container_name: gateway-dev
     # https://www.richard-banks.org/2018/07/debugging-core-in-docker.html
     # https://copyprogramming.com/howto/docker-compose-says-pwd-variable-not-set-windows

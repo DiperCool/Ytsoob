@@ -9,9 +9,9 @@ using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Posts.Features.DeletingPost;
 
-public record DeletePostCommand(PostId PostId) : ITxCommand<Unit>;
+public record DeletePost(PostId PostId) : ITxCommand<Unit>;
 
-public class DeletePostHandler : ICommandHandler<DeletePostCommand, Unit>
+public class DeletePostHandler : ICommandHandler<DeletePost, Unit>
 {
     private IPostsDbContext _postsDbContext;
     private ICurrentUserService _currentUserService;
@@ -21,7 +21,7 @@ public class DeletePostHandler : ICommandHandler<DeletePostCommand, Unit>
         _currentUserService = currentUserService;
     }
 
-    public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeletePost request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(request, nameof(request));
         var post = await _postsDbContext.Posts
@@ -32,6 +32,5 @@ public class DeletePostHandler : ICommandHandler<DeletePostCommand, Unit>
         _postsDbContext.Posts.Remove(post);
         await _postsDbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;
-
     }
 }

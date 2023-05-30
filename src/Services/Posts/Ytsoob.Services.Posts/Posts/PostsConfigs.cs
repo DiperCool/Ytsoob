@@ -13,7 +13,6 @@ public class PostsConfigs : IModuleConfiguration
     {
         // builder.Services.AddScoped<IDataSeeder, ProductDataSeeder>();
         // builder.Services.AddSingleton<IEventMapper, ProductEventMapper>();
-
         return builder;
     }
 
@@ -24,17 +23,11 @@ public class PostsConfigs : IModuleConfiguration
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var postVersionGroup = endpoints.MapApiGroup(Tag).WithTags(Tag);
-
-        // create a new sub group for each version
-        var productsGroupV1 = postVersionGroup.MapGroup(PostPrefixUri).HasApiVersion(1.0);
 
         // create a new sub group for each version
 
         // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#route-groups
         // https://github.com/dotnet/aspnet-api-versioning/blob/main/examples/AspNetCore/WebApi/MinimalOpenApiExample/Program.cs
-        productsGroupV1.MapCreatePostEndpoint();
-        productsGroupV1.MapUpdatePostEndpoint();
 
         return endpoints;
     }

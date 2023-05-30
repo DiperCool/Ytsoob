@@ -5,7 +5,7 @@ using Hellang.Middleware.ProblemDetails;
 
 namespace Ytsoob.Services.Posts.Posts.Features.DeletingPost;
 
-public class DeletePostEnpoint : ICommandMinimalEndpoint<DeletePostCommand>
+public class DeletePostEndpoint : ICommandMinimalEndpoint<DeletePostRequest>
 {
     public string GroupName => PostsConfigs.Tag;
     public string PrefixRoute => PostsConfigs.PostPrefixUri;
@@ -13,7 +13,8 @@ public class DeletePostEnpoint : ICommandMinimalEndpoint<DeletePostCommand>
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
-            .MapDelete("/{id}", HandleAsync)
+            .MapDelete("/", HandleAsync)
+            .RequireAuthorization()
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status401Unauthorized)
@@ -22,16 +23,16 @@ public class DeletePostEnpoint : ICommandMinimalEndpoint<DeletePostCommand>
     }
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        DeletePostCommand request,
+        [FromBody] DeletePostRequest request,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken
     )
     {
-        using (Serilog.Context.LogContext.PushProperty("Endpoint", nameof(DeletePostEnpoint)))
+        using (Serilog.Context.LogContext.PushProperty("Endpoint", nameof(DeletePostEndpoint)))
         using (Serilog.Context.LogContext.PushProperty("PostId", request.PostId))
         {
-            await commandProcessor.SendAsync(request, cancellationToken);
+            await commandProcessor.SendAsync(mapper.Map<DeletePostRequest, DeletePost>(request), cancellationToken);
 
             return Results.NoContent();
         }
