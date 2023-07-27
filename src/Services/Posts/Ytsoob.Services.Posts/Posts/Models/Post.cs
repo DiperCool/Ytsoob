@@ -1,4 +1,3 @@
-using BuildingBlocks.Abstractions.Domain;
 using BuildingBlocks.Core.Domain;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Contents.ValueObjects;

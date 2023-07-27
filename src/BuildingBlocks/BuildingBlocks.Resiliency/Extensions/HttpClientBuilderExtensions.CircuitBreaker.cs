@@ -1,5 +1,4 @@
 using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Web.Extenions;
 using BuildingBlocks.Resiliency.CircuitBreaker;
 using Microsoft.Extensions.Configuration;

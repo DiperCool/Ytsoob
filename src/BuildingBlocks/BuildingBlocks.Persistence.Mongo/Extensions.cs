@@ -1,7 +1,5 @@
 using BuildingBlocks.Abstractions.Persistence.Mongo;
 using BuildingBlocks.Core.Web.Extenions.ServiceCollection;
-using BuildingBlocks.Persistence.Mongo.Serializers;
-using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;

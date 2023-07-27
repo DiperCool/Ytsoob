@@ -4,7 +4,6 @@ using BuildingBlocks.Abstractions.CQRS.Events.Internal;
 using BuildingBlocks.Abstractions.Messaging;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace BuildingBlocks.Core.CQRS.Events;
 

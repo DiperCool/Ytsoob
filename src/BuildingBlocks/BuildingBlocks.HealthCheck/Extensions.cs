@@ -1,12 +1,10 @@
 using System.Text;
 using System.Text.Json;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Web.Extenions;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prometheus;
 

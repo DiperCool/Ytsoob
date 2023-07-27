@@ -32,14 +32,13 @@ public class GenerateJwtTokenHandler : ICommandHandler<GenerateJwtToken, Generat
 
         // authentication successful so generate jwt and refresh tokens
         var allClaims = await GetClaimsAsync(request.User.UserName);
-        var fullName = $"{identityUser.FirstName} {identityUser.LastName}";
 
         var tokenResult = _jwtService.GenerateJwtToken(
             identityUser.UserName,
             identityUser.Email,
             identityUser.Id.ToString(),
+            identityUser.YtsooberId.ToString(),
             identityUser.EmailConfirmed || identityUser.PhoneNumberConfirmed,
-            fullName,
             request.RefreshToken,
             allClaims.UserClaims.ToImmutableList(),
             allClaims.Roles.ToImmutableList(),

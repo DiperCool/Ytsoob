@@ -2,6 +2,7 @@ using Ardalis.GuardClauses;
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.Messaging;
 using BuildingBlocks.Abstractions.Messaging.PersistMessage;
+using BuildingBlocks.Core.IdsGenerator;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Ytsoob.Services.Identity.Shared.Models;
@@ -89,13 +90,12 @@ internal class RegisterUserHandler : ICommandHandler<RegisterUser, RegisterUserR
     {
         var applicationUser = new ApplicationUser
         {
-            FirstName = request.FirstName,
-            LastName = request.LastName,
             UserName = request.UserName,
             Email = request.Email,
             UserState = UserState.Active,
             CreatedAt = request.CreatedAt,
-            PhoneNumber = request.Phone
+            PhoneNumber = request.Phone,
+            YtsooberId = SnowFlakIdGenerator.NewId()
         };
 
         var identityResult = await _userManager.CreateAsync(applicationUser, request.Password);
@@ -112,6 +112,8 @@ internal class RegisterUserHandler : ICommandHandler<RegisterUser, RegisterUserR
 
         var userRegistered = new UserRegisteredV1(
             applicationUser.Id,
+            applicationUser.YtsooberId,
+            applicationUser.UserName,
             applicationUser.Email,
             applicationUser.PhoneNumber!,
             request.Roles
@@ -131,8 +133,6 @@ internal class RegisterUserHandler : ICommandHandler<RegisterUser, RegisterUserR
                 Email = applicationUser.Email,
                 PhoneNumber = applicationUser.PhoneNumber,
                 UserName = applicationUser.UserName,
-                FirstName = applicationUser.FirstName,
-                LastName = applicationUser.LastName,
                 Roles = request.Roles ?? new List<string> { IdentityConstants.Role.User },
                 RefreshTokens = applicationUser?.RefreshTokens?.Select(x => x.Token),
                 CreatedAt = request.CreatedAt,

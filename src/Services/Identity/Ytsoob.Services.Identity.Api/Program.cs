@@ -1,18 +1,14 @@
 using Bogus;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Web;
 using BuildingBlocks.Core.Web.Extenions;
 using BuildingBlocks.Core.Web.Extenions.ServiceCollection;
-using BuildingBlocks.Security.Extensions;
-using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
 using BuildingBlocks.Web.Extensions;
-using Ytsoob.Services.Identity;
-using Ytsoob.Services.Identity.Api.Extensions.ApplicationBuilderExtensions;
-using Ytsoob.Services.Identity.Api.Middlewares;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Spectre.Console;
+using Ytsoob.Services.Identity.Api.Extensions.ApplicationBuilderExtensions;
+using Ytsoob.Services.Identity.Api.Middlewares;
 
 AnsiConsole.Write(new FigletText("Identity Service").Centered().Color(Color.FromInt32(new Faker().Random.Int(1, 255))));
 
@@ -45,6 +41,7 @@ builder.Services
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
         // https://stackoverflow.com/questions/36452468/swagger-ui-web-api-documentation-present-enums-as-strings
         // options.SerializerSettings.Converters.Add(new StringEnumConverter()); // sending enum string to and from client instead of number
     })

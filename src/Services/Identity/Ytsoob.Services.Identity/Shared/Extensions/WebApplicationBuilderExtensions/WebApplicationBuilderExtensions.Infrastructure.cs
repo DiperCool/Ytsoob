@@ -1,6 +1,5 @@
 using BuildingBlocks.Caching;
 using BuildingBlocks.Caching.Behaviours;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.IdsGenerator;
 using BuildingBlocks.Core.Persistence.EfCore;
 using BuildingBlocks.Core.Registrations;
@@ -18,7 +17,6 @@ using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
 using Ytsoob.Services.Identity.Users;
-using Serilog.Events;
 
 namespace Ytsoob.Services.Identity.Shared.Extensions.WebApplicationBuilderExtensions;
 

@@ -1,5 +1,4 @@
 using BuildingBlocks.Core.Domain;
-using Ytsoob.Services.Posts.Contents.Exceptions.Domain;
 using Ytsoob.Services.Posts.Contents.ValueObjects;
 using Ytsoob.Services.Posts.Posts.ValueObjects;
 

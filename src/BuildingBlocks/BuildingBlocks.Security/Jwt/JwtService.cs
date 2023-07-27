@@ -23,8 +23,8 @@ public class JwtService : IJwtService
         string userName,
         string email,
         string userId,
+        string ytsooberId,
         bool? isVerified = null,
-        string? fullName = null,
         string? refreshToken = null,
         IReadOnlyList<Claim>? usersClaims = null,
         IReadOnlyList<string>? rolesClaims = null,
@@ -42,13 +42,11 @@ public class JwtService : IJwtService
         // https://stackoverflow.com/a/50012477/581476
         var jwtClaims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.NameId, userId),
-            new(JwtRegisteredClaimNames.Name, fullName ?? ""),
+            new(JwtRegisteredClaimNames.NameId, ytsooberId),
             new(JwtRegisteredClaimNames.Sub, userId),
             new(JwtRegisteredClaimNames.Sid, userId),
             new(JwtRegisteredClaimNames.UniqueName, userName),
             new(JwtRegisteredClaimNames.Email, email),
-            new(JwtRegisteredClaimNames.GivenName, fullName ?? ""),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(
                 JwtRegisteredClaimNames.Iat,

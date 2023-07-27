@@ -26,6 +26,6 @@ public class PostsDbContext : EfDbContextBase, IPostsDbContext
     }
 
     public DbSet<Post> Posts => Set<Post>();
-    public DbSet<User> Users => Set<User>();
+    public DbSet<Ytsoober> Ytsoobers => Set<Ytsoober>();
     public DbSet<Content> Contents => Set<Content>();
 }

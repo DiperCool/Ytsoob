@@ -1,11 +1,8 @@
 ﻿using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using BuildingBlocks.Abstractions.Serialization;
 using BuildingBlocks.Core.Serialization.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using JsonConverter = Newtonsoft.Json.JsonConverter;
 using JsonProperty = Newtonsoft.Json.Serialization.JsonProperty;
 
 namespace BuildingBlocks.Core.Serialization;

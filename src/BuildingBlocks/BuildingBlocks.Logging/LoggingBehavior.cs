@@ -2,7 +2,6 @@ using System.Diagnostics;
 using BuildingBlocks.Abstractions.Serialization;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace BuildingBlocks.Logging;
 

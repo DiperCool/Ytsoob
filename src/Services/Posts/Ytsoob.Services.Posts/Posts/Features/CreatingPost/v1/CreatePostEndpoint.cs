@@ -1,10 +1,8 @@
-using System.Globalization;
 using Ardalis.GuardClauses;
 using AutoMapper;
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
 using Hellang.Middleware.ProblemDetails;
-using Ytsoob.Services.Posts.Posts.Features.DeletingPost;
 
 namespace Ytsoob.Services.Posts.Posts.Features.CreatingPost.v1;
 
@@ -44,6 +42,4 @@ public class CreatePostEndpoint : ICommandMinimalEndpoint<CreatePostRequest>
             return Results.Ok(result);
         }
     }
-
-
 }

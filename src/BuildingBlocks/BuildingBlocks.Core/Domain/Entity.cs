@@ -6,7 +6,7 @@ public abstract class Entity<TId> : IEntity<TId>
 {
     public TId Id { get; protected init; } = default!;
     public DateTime Created { get; private set; } = default!;
-    public Guid? CreatedBy { get; private set; } = default!;
+    public long? CreatedBy { get; private set; } = default!;
 }
 
 public abstract class Entity<TIdentity, TId> : Entity<TIdentity>

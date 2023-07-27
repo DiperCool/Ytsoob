@@ -1,10 +1,8 @@
 ﻿using System.Reflection;
 using BuildingBlocks.Abstractions.Messaging;
 using BuildingBlocks.Abstractions.Persistence;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Messaging;
 using BuildingBlocks.Core.Reflection;
-using BuildingBlocks.Core.Utils;
 using BuildingBlocks.Core.Web.Extenions;
 using BuildingBlocks.Validation;
 using MassTransit;

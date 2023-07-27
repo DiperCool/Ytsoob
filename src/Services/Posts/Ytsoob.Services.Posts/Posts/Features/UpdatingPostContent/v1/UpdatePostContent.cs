@@ -37,7 +37,7 @@ public class UpdateTextPostHandler : ICommandHandler<UpdatePostContent, UpdatePo
     {
         Post? post = await _postsDbContext.Posts
             .Include(x => x.Content)
-            .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _currentUserService.UserIdGuid, cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _currentUserService.YtsooberId, cancellationToken: cancellationToken);
         if (post == null)
         {
             throw new NotFoundException("Post with this Id not found");

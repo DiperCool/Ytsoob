@@ -26,7 +26,7 @@ public class DeletePostHandler : ICommandHandler<DeletePost, Unit>
         Guard.Against.Null(request, nameof(request));
         var post = await _postsDbContext.Posts
             .Include(x => x.Content)
-            .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _currentUserService.UserIdGuid, cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _currentUserService.YtsooberId, cancellationToken: cancellationToken);
         Guard.Against.NotFound(post, new PostNotFoundException(request.PostId));
         post!.Delete();
         _postsDbContext.Posts.Remove(post);

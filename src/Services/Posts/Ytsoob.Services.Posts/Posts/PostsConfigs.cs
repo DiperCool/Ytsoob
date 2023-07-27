@@ -1,5 +1,4 @@
 using BuildingBlocks.Abstractions.Web.Module;
-using Ytsoob.Services.Posts.Posts.Features.CreatingPost.v1;
 using Ytsoob.Services.Posts.Shared;
 
 namespace Ytsoob.Services.Posts.Posts;

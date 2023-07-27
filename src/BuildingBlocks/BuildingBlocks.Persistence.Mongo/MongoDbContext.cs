@@ -1,10 +1,5 @@
 using BuildingBlocks.Abstractions.Persistence;
 using BuildingBlocks.Abstractions.Persistence.Mongo;
-using BuildingBlocks.Persistence.Mongo.Serializers;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Conventions;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace BuildingBlocks.Persistence.Mongo;

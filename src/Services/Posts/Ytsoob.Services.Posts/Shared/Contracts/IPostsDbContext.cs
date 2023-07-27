@@ -10,7 +10,7 @@ public interface IPostsDbContext
     DbSet<TEntity> Set<TEntity>()
         where TEntity : class;
     DbSet<Post> Posts { get;  }
-    DbSet<User> Users { get;  }
+    DbSet<Ytsoober> Ytsoobers { get;  }
     DbSet<Content> Contents { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

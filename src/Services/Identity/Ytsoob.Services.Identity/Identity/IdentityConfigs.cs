@@ -1,8 +1,6 @@
 using BuildingBlocks.Abstractions.Persistence;
 using BuildingBlocks.Abstractions.Web.Module;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Web.Extenions;
-using BuildingBlocks.Web.Extensions;
 using Ytsoob.Services.Identity.Identity.Features.GettingClaims.v1;
 using Ytsoob.Services.Identity.Identity.Features.Login.v1;
 using Ytsoob.Services.Identity.Identity.Features.Logout.v1;

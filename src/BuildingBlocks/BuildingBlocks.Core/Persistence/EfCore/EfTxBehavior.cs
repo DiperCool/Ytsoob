@@ -4,7 +4,6 @@ using BuildingBlocks.Abstractions.Serialization;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BuildingBlocks.Core.Persistence.EfCore;

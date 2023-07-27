@@ -3,7 +3,6 @@ using AutoMapper;
 using BuildingBlocks.Abstractions.CQRS.Queries;
 using BuildingBlocks.Core.Exception;
 using Ytsoob.Services.Identity.Shared.Extensions;
-using Ytsoob.Services.Identity.Users.Dtos;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Ytsoob.Services.Identity.Shared.Exceptions;

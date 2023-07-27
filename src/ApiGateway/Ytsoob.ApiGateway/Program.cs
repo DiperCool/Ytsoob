@@ -1,6 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
 using BuildingBlocks.Logging;
-using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SpectreConsole;

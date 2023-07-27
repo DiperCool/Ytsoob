@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tests.Shared.Fixtures;
-using Tests.Shared.XunitCategories;
 
 namespace Tests.Shared.TestBase;
 

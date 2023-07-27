@@ -1,5 +1,4 @@
 ﻿using BuildingBlocks.Abstractions.Messaging;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Messaging.Extensions;
 using BuildingBlocks.Core.Types;
 using BuildingBlocks.Core.Types.Extensions;

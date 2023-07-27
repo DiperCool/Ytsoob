@@ -14,8 +14,13 @@ services:
       context: ../../
       dockerfile: src/ApiGateway/dev.Dockerfile
     ports:
-      - 3010:3010
+      - 3010:80
+      - 3012:443
     container_name: gateway-dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     # https://www.richard-banks.org/2018/07/debugging-core-in-docker.html
     # https://copyprogramming.com/howto/docker-compose-says-pwd-variable-not-set-windows
     # https://github.com/OmniSharp/omnisharp-vscode/wiki/Attaching-to-remote-processes#installing-vsdbg-on-the-server
@@ -28,7 +33,9 @@ services:
       - ~/vsdbg:/vsdbg:ro
       - ~/.nuget/packages:/root/.nuget/packages:ro
       - ~/.nuget/packages:/home/appuser/.nuget/packages:ro
-
+      - /home/diper/.aspnet/https:/https:ro
+    networks:
+      - Ytsoob
   identity:
     # https://nickjanetakis.com/blog/docker-tip-57-using-build-and-image-in-the-same-docker-compose-service
     image: identity:dev
@@ -41,6 +48,10 @@ services:
       context: ../../
       dockerfile: src/Services/Identity/dev.Dockerfile
     container_name: identity-dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     # https://www.richard-banks.org/2018/07/debugging-core-in-docker.html
     # https://copyprogramming.com/howto/docker-compose-says-pwd-variable-not-set-windows
     # https://github.com/OmniSharp/omnisharp-vscode/wiki/Attaching-to-remote-processes#installing-vsdbg-on-the-server
@@ -53,3 +64,12 @@ services:
       - ~/vsdbg:/vsdbg:ro
       - ~/.nuget/packages:/root/.nuget/packages:ro
       - ~/.nuget/packages:/home/appuser/.nuget/packages:ro
+      - /home/diper/.aspnet/https:/https:ro
+    networks:
+      - Ytsoob
+networks:
+  Ytsoob:
+    name: Ytsoob
+    driver: bridge
+    # we can use the network that will create by infrastructure docker-compose file and we use that network here by specifying existing network 'name' and set 'external' attribute to 'true' (because we want to use a network outside of our docker-compose) or we can create a `Ytsoob` network manually by `docker network create -d bridge Ytsoob` and use this network as external network for all docker-compose files
+    external: true

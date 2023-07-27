@@ -1,5 +1,4 @@
 using BuildingBlocks.Abstractions.CQRS.Queries;
-using Ytsoob.Services.Identity.Users.Features.RegisteringUser;
 using Hellang.Middleware.ProblemDetails;
 using Ytsoob.Services.Identity.Users.Features.RegisteringUser.v1;
 

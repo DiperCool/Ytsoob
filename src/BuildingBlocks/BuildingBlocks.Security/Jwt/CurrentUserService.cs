@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BuildingBlocks.Security.Jwt;
 
@@ -29,6 +30,15 @@ public class CurrentUserService : ICurrentUserService
         get
         {
             return UserId == null ? Guid.Empty : Guid.Parse(UserId);
+        }
+    }
+
+    public long YtsooberId
+    {
+        get
+        {
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(JwtRegisteredClaimNames.NameId);
+            return long.Parse(userId);
         }
     }
 

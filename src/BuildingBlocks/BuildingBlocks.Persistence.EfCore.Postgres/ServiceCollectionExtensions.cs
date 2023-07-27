@@ -9,15 +9,8 @@ using BuildingBlocks.Core.Persistence.EfCore;
 using BuildingBlocks.Core.Persistence.EfCore.Interceptors;
 using BuildingBlocks.Core.Web.Extenions.ServiceCollection;
 using Core.Persistence.Postgres;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Polly;
-using Polly.Retry;
 
 namespace BuildingBlocks.Persistence.EfCore.Postgres;
 
@@ -65,7 +58,6 @@ public static class ServiceCollectionExtensions
                     .UseSnakeCaseNamingConvention();
 
                 // ref: https://andrewlock.net/series/using-strongly-typed-entity-ids-to-avoid-primitive-obsession/
-                options.ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector<Guid>>();
                 options.ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector<long>>();
                 options.AddInterceptors(
                     sp.GetRequiredService<AuditInterceptor>(),

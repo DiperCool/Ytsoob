@@ -1,5 +1,4 @@
 using AutoMapper;
-using Ytsoob.Services.Identity.Users.Dtos;
 using Ytsoob.Services.Identity.Shared.Models;
 using Ytsoob.Services.Identity.Users.Dtos.v1;
 

@@ -1,6 +1,5 @@
 using System.Net;
 using BuildingBlocks.Core.Exception.Types;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Types.Extensions;
 using Ytsoob.Services.Identity.Shared.Models;
 

@@ -1,12 +1,9 @@
 using AutoMapper;
 using BuildingBlocks.Abstractions.CQRS.Queries;
 using BuildingBlocks.Core.CQRS.Queries;
-using BuildingBlocks.Core.Persistence.EfCore;
 using Ytsoob.Services.Identity.Shared.Extensions;
-using Ytsoob.Services.Identity.Users.Dtos;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Identity.Shared.Models;
 using Ytsoob.Services.Identity.Users.Dtos.v1;
 

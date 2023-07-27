@@ -1,7 +1,5 @@
 using BuildingBlocks.Abstractions.Persistence;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Web.Extenions;
-using BuildingBlocks.Web.Extensions;
 
 namespace Ytsoob.Services.Identity.Shared.Extensions.WebApplicationExtensions;
 

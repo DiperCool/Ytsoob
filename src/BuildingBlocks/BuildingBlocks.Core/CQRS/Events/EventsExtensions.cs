@@ -2,9 +2,7 @@ using System.Reflection;
 using BuildingBlocks.Abstractions.CQRS.Events.Internal;
 using BuildingBlocks.Abstractions.Messaging;
 using BuildingBlocks.Core.CQRS.Events.Internal;
-using BuildingBlocks.Core.Extensions;
 using BuildingBlocks.Core.Reflection.Extensions;
-using BuildingBlocks.Core.Types.Extensions;
 
 namespace BuildingBlocks.Core.CQRS.Events;
 
