@@ -288,6 +288,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ytsoob.Services.Ytsoobers",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ytsoob.Services.Ytsoobers.Api", "src\Services\Ytsoobers\Ytsoob.Services.Ytsoobers.Api\Ytsoob.Services.Ytsoobers.Api.csproj", "{E5E6E1C3-1B04-4234-94FC-9E201B2BA797}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.BlobStorage", "src\BuildingBlocks.BlobStorage\BuildingBlocks.BlobStorage.csproj", "{46E935BF-C6E0-4648-8BB8-AC5256D0D3B5}"
+EndProject
 
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -367,6 +369,7 @@ Global
 		{D3349554-75E1-4FD1-A46E-90D68BCBAF63} = {7FE1E54C-F745-4ED7-A4BA-7EFD18345F51}
 		{E5E6E1C3-1B04-4234-94FC-9E201B2BA797} = {7FE1E54C-F745-4ED7-A4BA-7EFD18345F51}
 		{615DD03D-7AB3-4429-BE66-B111CAFB3A78} = {6AC5D76E-2A65-4EC9-AA72-A6BEDF50D0B5}
+		{46E935BF-C6E0-4648-8BB8-AC5256D0D3B5} = {FB247B5A-5299-4FFE-BE54-B7E1472D4A2E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9063E326-1CDF-4CA7-8D72-CA15AB532EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -473,5 +476,9 @@ Global
 		{E5E6E1C3-1B04-4234-94FC-9E201B2BA797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5E6E1C3-1B04-4234-94FC-9E201B2BA797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5E6E1C3-1B04-4234-94FC-9E201B2BA797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E935BF-C6E0-4648-8BB8-AC5256D0D3B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E935BF-C6E0-4648-8BB8-AC5256D0D3B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E935BF-C6E0-4648-8BB8-AC5256D0D3B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E935BF-C6E0-4648-8BB8-AC5256D0D3B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -6,7 +6,7 @@ using Hellang.Middleware.ProblemDetails;
 
 namespace Ytsoob.Services.Ytsoobers.Profiles.Features.UpdatingProfile.v1.UpdateProfile;
 
-public class UpdateProfileEndpoint : ICommandMinimalEndpoint<UpdateProfile>
+public class UpdateProfileEndpoint : IMinimalEndpoint
 {
     public string GroupName => ProfilesConfig.Tag;
     public string PrefixRoute => ProfilesConfig.ProfilesPrefixUri;
@@ -19,22 +19,22 @@ public class UpdateProfileEndpoint : ICommandMinimalEndpoint<UpdateProfile>
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status401Unauthorized)
-            .WithName("CreatePost")
-            .WithDisplayName("Create Post.");
+            .WithName("UpdateProfile")
+            .WithDisplayName("Update Profile.");
     }
 
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        [FromBody] UpdateProfile request,
+        [FromQuery] string firstName,
+        [FromQuery] string lastName,
+        [FromForm] IFormFile file,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken
     )
     {
-        Guard.Against.Null(request, nameof(request));
-        await commandProcessor.SendAsync(request, cancellationToken);
-
-        return Results.Ok();
+       await commandProcessor.SendAsync(new UpdateProfile(firstName, lastName, file), cancellationToken);
+       return Results.Ok();
     }
 }
 

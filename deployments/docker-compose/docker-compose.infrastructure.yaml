@@ -254,13 +254,18 @@ services:
       ACCEPT_EULA: Y
     networks:
       - Ytsoob
-
-# https://docs.docker.com/compose/networking/
-# https://docs.docker.com/engine/reference/commandline/network_create/
-# https://docs.docker.com/compose/compose-file/#networks-top-level-element
-# https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects
-# We could use also a predefined network and connect to that predefined network with specifying the 'name' of existing network and set 'external' attribute to true
-# When we run docker-compose up, Docker Compose will check if the 'Ytsoob' network already exists. If it does not exist, it will create the 'Ytsoob' network. If it exists, it will use the existing 'Ytsoob' network. problem is that if we do a docker-compose down this network will delete and other docker-compose that use same network will fail because network deleted so its better we use `external` keyword for using a predefined network
+  blobstorage:
+    image: minio/minio
+    container_name: blobstorage
+    ports:
+      - 9001:9001
+      - 9000:9000
+    environment:
+      - MINIO_ROOT_USER=access
+      - MINIO_ROOT_PASSWORD=secret1234
+    command: server /data --console-address ":9001"
+    networks:
+      - Ytsoob
 networks:
   Ytsoob:
     name: Ytsoob

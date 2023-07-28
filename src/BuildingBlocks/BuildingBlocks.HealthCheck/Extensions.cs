@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Minio;
+using Minio.AspNetCore.HealthChecks;
 using Prometheus;
 
 namespace BuildingBlocks.HealthCheck;
@@ -44,7 +46,6 @@ public static class Extensions
                 setup.AddHealthCheckEndpoint("Downstream Services", "/health/downstream-services");
             })
             .AddInMemoryStorage();
-
         return builder;
     }
 

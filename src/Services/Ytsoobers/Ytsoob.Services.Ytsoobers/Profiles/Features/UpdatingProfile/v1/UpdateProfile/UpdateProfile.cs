@@ -1,3 +1,4 @@
+using BlobStorage;
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Security.Jwt;
 using FluentValidation;
@@ -9,12 +10,7 @@ using Ytsoob.Services.Ytsoobers.Ytsoobers.Models;
 
 namespace Ytsoob.Services.Ytsoobers.Profiles.Features.UpdatingProfile.v1.UpdateProfile;
 
-public class UpdateProfile : ITxUpdateCommand<Unit>
-{
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public string Avatar { get; set; } = string.Empty;
-}
+public record UpdateProfile(string FirstName, string LastName, IFormFile? Avatar) : ITxUpdateCommand<Unit>;
 
 public class UpdateProfileValidator : AbstractValidator<UpdateProfile>
 {
@@ -34,12 +30,13 @@ public class UpdateProfileHandler : ICommandHandler<UpdateProfile, Unit>
     private IYtsoobersDbContext _ytsoobersDbContext;
     private ICurrentUserService _currentUserService;
     private ILogger<UpdateProfileHandler> _logger;
-
-    public UpdateProfileHandler(IYtsoobersDbContext ytsoobersDbContext, ICurrentUserService currentUserService, ILogger<UpdateProfileHandler> logger)
+    private IAvatarStorage _avatarStorage;
+    public UpdateProfileHandler(IYtsoobersDbContext ytsoobersDbContext, ICurrentUserService currentUserService, ILogger<UpdateProfileHandler> logger, IAvatarStorage avatarStorage)
     {
         _ytsoobersDbContext = ytsoobersDbContext;
         _currentUserService = currentUserService;
         _logger = logger;
+        _avatarStorage = avatarStorage;
     }
 
     public async Task<Unit> Handle(UpdateProfile request, CancellationToken cancellationToken)
@@ -53,7 +50,8 @@ public class UpdateProfileHandler : ICommandHandler<UpdateProfile, Unit>
             throw new YtsooberNotFoundException(_currentUserService.YtsooberId);
         }
 
-        ytsoober.UpdateProfile(FirstName.Of(request.FirstName), LastName.Of(request.LastName), request.Avatar);
+        string? avatar = request.Avatar != null ? await _avatarStorage.UploadAvatarAsync(request.Avatar, cancellationToken) : null;
+        ytsoober.UpdateProfile(FirstName.Of(request.FirstName), LastName.Of(request.LastName), avatar);
         _ytsoobersDbContext.Ytsoobers.Update(ytsoober);
         await _ytsoobersDbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;

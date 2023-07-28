@@ -26,6 +26,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
     <PackageReference Include="AspNetCore.HealthChecks.EventStore" />
+    <PackageReference Include="Minio.AspNetCore.HealthChecks" />
   </ItemGroup>
 
   <ItemGroup>
