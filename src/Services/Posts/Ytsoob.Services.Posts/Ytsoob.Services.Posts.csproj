@@ -1,16 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Abstractions\BuildingBlocks.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.BlobStorage\BuildingBlocks.BlobStorage.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Caching\BuildingBlocks.Caching.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Email\BuildingBlocks.Email.csproj" />
@@ -28,15 +25,8 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Web\BuildingBlocks.Web.csproj" />
     <ProjectReference Include="..\..\Shared\Ytsoob.Services.Shared\Ytsoob.Services.Shared.csproj" />
   </ItemGroup>
-
   <!-- Copy appsetings files to test projects for reading from ConfigutationBuilder directly-->
   <!--Set CopyToPublishDirectory to always for ensuring copy to publish directory and prevent to conflict with other appsentigs.json, if don't set this it is possible other refrence project setting ovverid its own settings in publish dir-->
-
-  <ItemGroup>
-    <InternalsVisibleTo Include="Ytsoob.Services.Customers.IntegrationTests" />
-    <InternalsVisibleTo Include="Ytsoob.Services.Customers.UnitTests" />
-  </ItemGroup>
-
   <ItemGroup>
     <Content Include="..\Ytsoob.Services.Posts.Api\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -44,5 +34,4 @@
       <Link>appsettings.json</Link>
     </Content>
   </ItemGroup>
-
 </Project>

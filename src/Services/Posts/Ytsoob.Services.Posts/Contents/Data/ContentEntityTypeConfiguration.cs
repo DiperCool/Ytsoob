@@ -1,3 +1,4 @@
+
 using BuildingBlocks.Core.Persistence.EfCore;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
     public void Configure(EntityTypeBuilder<Content> builder)
     {
         builder.ToTable(nameof(Content).Pluralize().Underscore(), PostsDbContext.DefaultSchema);
+
         // ids will use strongly typed-id value converter selector globally
         builder.Property(x => x.Id).ValueGeneratedNever();
         builder.HasKey(x => x.Id);

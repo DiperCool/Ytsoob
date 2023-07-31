@@ -1,4 +1,4 @@
-namespace Ytsoob.Services.Posts.Posts.Features.UpdatingTextPost.v1;
+namespace Ytsoob.Services.Posts.Contents.Features.UpdatingPostContent.v1;
 
 public class UpdatePostContentRequest
 {

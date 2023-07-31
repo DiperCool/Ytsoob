@@ -1,4 +1,3 @@
-using BlobStorage;
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Security.Jwt;
 using FluentValidation;

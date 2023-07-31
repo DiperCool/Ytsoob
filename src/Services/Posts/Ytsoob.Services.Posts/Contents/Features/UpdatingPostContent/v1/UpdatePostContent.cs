@@ -4,11 +4,12 @@ using BuildingBlocks.Security.Jwt;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Contents.ValueObjects;
+using Ytsoob.Services.Posts.Posts.Exception;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Posts.ValueObjects;
 using Ytsoob.Services.Posts.Shared.Contracts;
 
-namespace Ytsoob.Services.Posts.Posts.Features.UpdatingTextPost.v1;
+namespace Ytsoob.Services.Posts.Contents.Features.UpdatingPostContent.v1;
 
 public record UpdatePostContent(PostId PostId, string ContentText) : ITxUpdateCommand<UpdatePostContentResponse>;
 
@@ -40,7 +41,7 @@ public class UpdateTextPostHandler : ICommandHandler<UpdatePostContent, UpdatePo
             .FirstOrDefaultAsync(x => x.Id == request.PostId && x.CreatedBy == _currentUserService.YtsooberId, cancellationToken: cancellationToken);
         if (post == null)
         {
-            throw new NotFoundException("Post with this Id not found");
+            throw new PostNotFoundException(request.PostId);
         }
 
         post.UpdateContentText(ContentText.Of(request.ContentText));

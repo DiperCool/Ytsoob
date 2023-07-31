@@ -1,4 +1,4 @@
-namespace Ytsoob.Services.Ytsoobers.Profiles.Dtos.V1;
+namespace Ytsoob.Services.Ytsoobers.Profiles.Dtos.v1;
 
 public class ProfileDto
 {

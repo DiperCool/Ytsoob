@@ -1,6 +1,5 @@
 using BuildingBlocks.Core.CQRS.Events.Internal;
-using Ytsoob.Services.Ytsoobers.Profiles.Dtos.V1;
-using Ytsoob.Services.Ytsoobers.Ytsoobers.ValueObjects;
+using Ytsoob.Services.Ytsoobers.Profiles.Dtos.v1;
 
 namespace Ytsoob.Services.Ytsoobers.Ytsoobers.Events;
 public record YtsooberCreated(

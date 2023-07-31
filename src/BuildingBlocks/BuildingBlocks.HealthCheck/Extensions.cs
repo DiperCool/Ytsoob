@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Minio;
-using Minio.AspNetCore.HealthChecks;
 using Prometheus;
 
 namespace BuildingBlocks.HealthCheck;

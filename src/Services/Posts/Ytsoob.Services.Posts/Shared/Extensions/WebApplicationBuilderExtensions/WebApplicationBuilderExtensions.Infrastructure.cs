@@ -1,3 +1,4 @@
+using BlobStorage;
 using BuildingBlocks.Caching;
 using BuildingBlocks.Caching.Behaviours;
 using BuildingBlocks.Core.IdsGenerator;
@@ -16,6 +17,8 @@ using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
+using Ytsoob.Services.Posts.Shared.Contracts;
+using Ytsoob.Services.Posts.Shared.Services;
 using Ytsoob.Services.Posts.Users;
 
 namespace Ytsoob.Services.Posts.Shared.Extensions.WebApplicationBuilderExtensions;
@@ -92,7 +95,7 @@ public static partial class WebApplicationBuilderExtensions
         builder.AddCustomVersioning();
         builder.AddCustomSwagger(typeof(CustomersAssemblyInfo).Assembly);
         builder.Services.AddHttpContextAccessor();
-
+        builder.Services.AddTransient<IContentBlobStorage, ContentBlobStorage>();
         builder.Services.AddCqrs(
             pipelines: new[]
             {
@@ -111,7 +114,7 @@ public static partial class WebApplicationBuilderExtensions
 
         // https://blog.maartenballiauw.be/post/2022/09/26/aspnet-core-rate-limiting-middleware.html
         builder.AddCustomRateLimit();
-
+        builder.AddBlobStorage();
         builder.AddCustomMassTransit(
             (context, cfg) =>
             {

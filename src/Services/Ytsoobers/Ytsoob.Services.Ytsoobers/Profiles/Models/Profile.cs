@@ -8,7 +8,6 @@ public class Profile : Entity<ProfileId>
     public FirstName? FirstName { get; private set; }
     public LastName? LastName { get; private set; }
     public string? Avatar { get; private set; }
-
     // ef core
     protected Profile() { }
     protected Profile(ProfileId profileId, FirstName firstName, LastName lastName)

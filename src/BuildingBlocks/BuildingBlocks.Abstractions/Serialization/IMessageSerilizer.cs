@@ -5,6 +5,7 @@ namespace BuildingBlocks.Abstractions.Serialization;
 public interface IMessageSerializer : ISerializer
 {
     string ContentType { get; }
+    
 
     /// <summary>
     /// Serializes the given <see cref="MessageEnvelope"/> into a string

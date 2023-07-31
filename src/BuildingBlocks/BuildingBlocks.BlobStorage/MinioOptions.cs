@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Configuration;
-
 namespace BlobStorage;
 
 public class MinioOptions

@@ -8,6 +8,7 @@
   <ItemGroup>
     <Folder Include="Users\Features" />
     <Folder Include="Users\Features\RegisteringUser\v1" />
+    <Folder Include="Ytsoobers\Events\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks.BlobStorage\BuildingBlocks.BlobStorage.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Abstractions\BuildingBlocks.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.BlobStorage\BuildingBlocks.BlobStorage.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Caching\BuildingBlocks.Caching.csproj" />

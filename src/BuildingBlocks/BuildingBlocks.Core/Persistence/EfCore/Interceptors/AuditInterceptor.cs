@@ -55,9 +55,10 @@ public class AuditInterceptor : SaveChangesInterceptor
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    private Guid? GetCurrentUser()
+    private long? GetCurrentUser()
     {
-        var id = _httpContextAccessor.HttpContext?.User?.FindFirstValue("sub");
-        return id == null ? null : Guid.Parse(id, CultureInfo.CurrentCulture);
+        var id = _httpContextAccessor.HttpContext?.User.FindFirstValue("nameid");
+        bool res = long.TryParse(id, CultureInfo.InvariantCulture, out long idD);
+        return res ? idD : null;
     }
 }

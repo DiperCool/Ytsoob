@@ -1,15 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <AssemblyName>Ytsoob.Services.Identity</AssemblyName>
     <RootNamespace>Ytsoob.Services.Identity</RootNamespace>
   </PropertyGroup>
-
   <!--  https://github.com/dotnet/core/issues/907-->
-
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Abstractions\BuildingBlocks.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Caching\BuildingBlocks.Caching.csproj" />
@@ -29,7 +24,6 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Web\BuildingBlocks.Web.csproj" />
     <ProjectReference Include="..\..\Shared\Ytsoob.Services.Shared\Ytsoob.Services.Shared.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Duende.IdentityServer" />
@@ -37,22 +31,17 @@
     <PackageReference Include="Duende.IdentityServer.AspNetIdentity" />
     <PackageReference Include="Duende.IdentityServer.EntityFramework" />
   </ItemGroup>
-
   <!-- Copy appsetings files to test projects for reading from ConfigutationBuilder directly-->
   <!--Set CopyToPublishDirectory to always for ensuring copy to publish directory and prevent to conflict with other appsentigs.json, if don't set this it is possible other refrence project setting ovverid its own settings in publish dir-->
-
   <!--  Copy appsetings files to test projects for reading from ConfigutationBuilder directly-->
-
-<!--  https://devblogs.microsoft.com/nuget/introducing-central-package-management/-->
-<!--  <ItemGroup>-->
-<!--    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" VersionOverride="11.0.0"/>-->
-<!--    <PackageReference Include="AutoMapper" VersionOverride="11.0.0"/>-->
-<!--  </ItemGroup>-->
-
+  <!--  https://devblogs.microsoft.com/nuget/introducing-central-package-management/-->
+  <!--  <ItemGroup>-->
+  <!--    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" VersionOverride="11.0.0" />-->
+  <!--    <PackageReference Include="AutoMapper" VersionOverride="11.0.0" />-->
+  <!--  </ItemGroup>-->
   <ItemGroup>
     <InternalsVisibleTo Include="Ytsoob.Services.Identity.IntegrationTests" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="..\Ytsoob.Services.Identity.Api\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -60,5 +49,4 @@
       <Link>appsettings.json</Link>
     </Content>
   </ItemGroup>
-
 </Project>

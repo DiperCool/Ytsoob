@@ -1,7 +1,7 @@
 using BuildingBlocks.Core.Domain;
 using BuildingBlocks.Core.Domain.ValueObjects;
 using BuildingBlocks.Core.IdsGenerator;
-using Ytsoob.Services.Ytsoobers.Profiles.Dtos.V1;
+using Ytsoob.Services.Ytsoobers.Profiles.Dtos.v1;
 using Ytsoob.Services.Ytsoobers.Profiles.ValueObjects;
 using Ytsoob.Services.Ytsoobers.Ytsoobers.Events;
 using Ytsoob.Services.Ytsoobers.Ytsoobers.ValueObjects;

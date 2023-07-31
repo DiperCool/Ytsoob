@@ -2,7 +2,6 @@ using Humanizer;
 using MassTransit;
 using RabbitMQ.Client;
 using Ytsoob.Services.Posts.Users.Features.RegisteringUser.v1.Events.Integration.External;
-using Ytsoob.Services.Shared.Identity.Users.Events.v1.Integration;
 using Ytsoob.Services.Shared.Ytsoobers.Ytsoobers.Events.v1.Integration;
 
 namespace Ytsoob.Services.Posts.Users;

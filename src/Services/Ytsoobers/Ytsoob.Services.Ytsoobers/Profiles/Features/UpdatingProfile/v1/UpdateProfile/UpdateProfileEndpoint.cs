@@ -1,4 +1,3 @@
-using Ardalis.GuardClauses;
 using AutoMapper;
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
@@ -14,7 +13,7 @@ public class UpdateProfileEndpoint : IMinimalEndpoint
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
-            .MapPost("/", HandleAsync)
+            .MapPut("/", HandleAsync)
             .RequireAuthorization()
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
@@ -34,7 +33,7 @@ public class UpdateProfileEndpoint : IMinimalEndpoint
     )
     {
        await commandProcessor.SendAsync(new UpdateProfile(firstName, lastName, file), cancellationToken);
-       return Results.Ok();
+       return Results.NoContent();
     }
 }
 

@@ -11,7 +11,6 @@ namespace Ytsoob.Services.Posts.Posts.Models;
 public class Post : Aggregate<PostId>
 {
     public Content Content { get; private set; } = default!;
-
     public Post(PostId postId, Content content)
     {
         Id = postId;
@@ -41,6 +40,13 @@ public class Post : Aggregate<PostId>
         AddDomainEvents(new PostDeleted(this));
     }
 
-    public DateTime? LastModified { get; } = null;
-    public int? LastModifiedBy { get; } = null;
+    public void AddFile(string fileUrl)
+    {
+        Content.AddFile(fileUrl);
+    }
+
+    public void RemoveFile(string fileUrl)
+    {
+        Content.RemoveFile(fileUrl);
+    }
 }

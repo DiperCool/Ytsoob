@@ -31,3 +31,9 @@ services:
     - .env
   bindings:
   - port: 8009
+- name: ytsoober-service
+  project: ../../src/Services/Posts/Ytsoob.Services.Posts.Api/Ytsoob.Services.Posts.Api.csproj
+  env_file:
+    - .env
+  bindings:
+  - port: 8000

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ytsoob.Services.Ytsoobers.Profiles.Models;
 using Ytsoob.Services.Ytsoobers.Shared.Data;
-using Ytsoob.Services.Ytsoobers.Ytsoobers.Models;
 
 namespace Ytsoob.Services.Ytsoobers.Profiles.Data;
 

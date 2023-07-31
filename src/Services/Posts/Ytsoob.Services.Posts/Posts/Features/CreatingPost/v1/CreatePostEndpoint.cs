@@ -14,7 +14,7 @@ public class CreatePostEndpoint : ICommandMinimalEndpoint<CreatePostRequest>
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
-            .MapPost("/", HandleAsync)
+            .MapPost("/Create", HandleAsync)
             .RequireAuthorization()
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
