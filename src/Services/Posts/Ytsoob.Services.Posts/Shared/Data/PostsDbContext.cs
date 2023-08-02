@@ -1,6 +1,7 @@
 using BuildingBlocks.Core.Persistence.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Contents.Models;
+using Ytsoob.Services.Posts.Poll.Models;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Shared.Contracts;
 using Ytsoob.Services.Posts.Users.Features.Models;
@@ -14,9 +15,6 @@ public class PostsDbContext : EfDbContextBase, IPostsDbContext
     public PostsDbContext(DbContextOptions<PostsDbContext> options)
         : base(options) { }
 
-
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension(EfConstants.UuidGenerator);
@@ -28,4 +26,7 @@ public class PostsDbContext : EfDbContextBase, IPostsDbContext
     public DbSet<Post> Posts => Set<Post>();
     public DbSet<Ytsoober> Ytsoobers => Set<Ytsoober>();
     public DbSet<Content> Contents => Set<Content>();
+    public DbSet<Poll.Models.Poll> Polls => Set<Poll.Models.Poll>();
+    public DbSet<Option> Options => Set<Option>();
+    public DbSet<Voter> Voters => Set<Voter>();
 }

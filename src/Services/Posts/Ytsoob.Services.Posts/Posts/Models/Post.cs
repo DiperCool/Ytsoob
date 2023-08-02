@@ -11,6 +11,8 @@ namespace Ytsoob.Services.Posts.Posts.Models;
 public class Post : Aggregate<PostId>
 {
     public Content Content { get; private set; } = default!;
+    public Poll.Models.Poll? Poll { get; private set; }
+
     public Post(PostId postId, Content content)
     {
         Id = postId;
@@ -18,14 +20,12 @@ public class Post : Aggregate<PostId>
     }
 
     // ef
-    protected Post()
-    {
-    }
+    protected Post() { }
 
     public void UpdateContentText(ContentText contentText)
     {
         Content.UpdateText(contentText);
-        AddDomainEvents(new PostContentUpdated(Id, contentText));
+        AddDomainEvents(new PostContentUpdated(Id, contentText, Content.Files));
     }
 
     public static Post Create(PostId postId, Content content)
@@ -40,13 +40,15 @@ public class Post : Aggregate<PostId>
         AddDomainEvents(new PostDeleted(this));
     }
 
-    public void AddFile(string fileUrl)
+    public void AddFileToContent(string fileUrl)
     {
         Content.AddFile(fileUrl);
+        AddDomainEvents(new PostContentUpdated(Id, Content.ContentText, Content.Files));
     }
 
-    public void RemoveFile(string fileUrl)
+    public void RemoveFileFromContent(string fileUrl)
     {
         Content.RemoveFile(fileUrl);
+        AddDomainEvents(new PostContentUpdated(Id, Content.ContentText, Content.Files));
     }
 }

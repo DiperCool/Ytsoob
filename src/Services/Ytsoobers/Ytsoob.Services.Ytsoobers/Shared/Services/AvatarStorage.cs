@@ -1,5 +1,5 @@
 using BlobStorage;
-using BlobStorage.Policy;
+using BlobStorage.Policies;
 using Ytsoob.Services.Ytsoobers.Shared.Contracts;
 
 namespace Ytsoob.Services.Ytsoobers.Shared.Services;

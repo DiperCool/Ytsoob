@@ -4,4 +4,4 @@ using Ytsoob.Services.Posts.Posts.ValueObjects;
 
 namespace Ytsoob.Services.Posts.Posts.Features.UpdatingTextPost.v1.Events;
 
-public record PostContentUpdated(PostId PostId, ContentText ContentText) : DomainEvent;
+public record PostContentUpdated(PostId PostId, ContentText ContentText, IEnumerable<string> Files) : DomainEvent;

@@ -2,20 +2,19 @@ using Ardalis.GuardClauses;
 using AutoMapper;
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
-using BuildingBlocks.Core.Exception.Types;
 using BuildingBlocks.Security.Jwt;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
+using Ytsoob.Services.Posts.Contents.Features.UpdatingPostContent.v1;
 using Ytsoob.Services.Posts.Posts.Exception;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Shared.Contracts;
 
-namespace Ytsoob.Services.Posts.Contents.Features.UpdatingPostContent.v1;
+namespace Ytsoob.Services.Posts.Contents.Features.RemovingFiles.v1.RemoveFiles;
 
+public record RemoveFiles(long PostId, IEnumerable<string> Files) : ICommand;
 
-public record AddFiles(long PostId, List<IFormFile> Files) : ITxUpdateCommand;
-
-public class AddFilesEndpoint : IMinimalEndpoint
+public class RemoveFileEndpoint : IMinimalEndpoint
 {
     public string GroupName => ContentsConfig.Tag;
     public string PrefixRoute => ContentsConfig.PostPrefixUri;
@@ -23,7 +22,7 @@ public class AddFilesEndpoint : IMinimalEndpoint
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
-            .MapPost("/", HandleAsync)
+            .MapDelete("/", HandleAsync)
             .RequireAuthorization()
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
@@ -31,58 +30,53 @@ public class AddFilesEndpoint : IMinimalEndpoint
             .WithName("AddFiles")
             .WithDisplayName("Add files.");
     }
+
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        [FromQuery] long postId,
-        [FromForm] IFormFileCollection files,
+        [FromBody] AddFiles command,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken
     )
     {
-        Guard.Against.Null(postId, nameof(postId));
+        Guard.Against.Null(command, nameof(command));
 
-        using (Serilog.Context.LogContext.PushProperty("Endpoint", nameof(AddFilesEndpoint)))
-            using (Serilog.Context.LogContext.PushProperty("PostId", postId))
+        using (Serilog.Context.LogContext.PushProperty("Endpoint", nameof(RemoveFiles)))
+            using (Serilog.Context.LogContext.PushProperty("PostId", command.PostId))
             {
-                var result = await commandProcessor.SendAsync(new AddFiles(postId, files.ToList()), cancellationToken);
+                var result = await commandProcessor.SendAsync(command, cancellationToken);
 
                 return Results.Ok(result);
             }
     }
 }
 
-public class AddFilesHandler : ICommandHandler<AddFiles>
+public class RemoveFilesHandler : ICommandHandler<RemoveFiles>
 {
-    private IContentBlobStorage _contentBlobStorage;
-    private IPostsDbContext _postsDbContext;
+    private IPostsDbContext _context;
     private ICurrentUserService _currentUserService;
-    private IMapper _mapper;
+    private IContentBlobStorage _contentBlobStorage;
 
-    public AddFilesHandler(IContentBlobStorage contentBlobStorage, IPostsDbContext postsDbContext, IMapper mapper, ICurrentUserService currentUserService)
+    public RemoveFilesHandler(IPostsDbContext context, ICurrentUserService currentUserService, IContentBlobStorage contentBlobStorage)
     {
-        _contentBlobStorage = contentBlobStorage;
-        _postsDbContext = postsDbContext;
-        _mapper = mapper;
+        _context = context;
         _currentUserService = currentUserService;
+        _contentBlobStorage = contentBlobStorage;
     }
 
-    public async Task<Unit> Handle(AddFiles request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(RemoveFiles request, CancellationToken cancellationToken)
     {
-        Post? post = await _postsDbContext.Posts
+        Post? post = await _context.Posts
                          .Include(x => x.Content)
                          .Where(x => x.CreatedBy == _currentUserService.YtsooberId && x.Id == request.PostId)
                          .FirstOrDefaultAsync(cancellationToken: cancellationToken);
         if (post == null) throw new PostNotFoundException(request.PostId);
-        if (!request.Files.Any()) throw new BadRequestException("Files empty");
-        IEnumerable<string?> files = await _contentBlobStorage.UploadFilesAsync(request.Files, cancellationToken);
-        foreach (var file in files)
+        foreach (string file in request.Files)
         {
-            if (file != null) post.AddFileToContent(file);
+            post.RemoveFileFromContent(file);
         }
 
-        _postsDbContext.Posts.Update(post);
-        await _postsDbContext.SaveChangesAsync(cancellationToken);
+        await _contentBlobStorage.RemoveFilesAsync(request.Files, cancellationToken);
         return Unit.Value;
     }
 }

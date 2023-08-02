@@ -1,3 +1,5 @@
+using MediatR;
+
 namespace BuildingBlocks.Resiliency.Retry;
 
 //https://gist.github.com/henkmollema/ba21bb90c35580a7189e77624d9ed8d1

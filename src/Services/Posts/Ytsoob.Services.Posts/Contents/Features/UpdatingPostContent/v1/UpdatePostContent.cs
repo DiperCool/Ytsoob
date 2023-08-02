@@ -1,5 +1,4 @@
 using BuildingBlocks.Abstractions.CQRS.Commands;
-using BuildingBlocks.Core.Exception.Types;
 using BuildingBlocks.Security.Jwt;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
