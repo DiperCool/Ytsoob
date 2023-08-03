@@ -26,7 +26,7 @@ public class PostsDbContext : EfDbContextBase, IPostsDbContext
     public DbSet<Post> Posts => Set<Post>();
     public DbSet<Ytsoober> Ytsoobers => Set<Ytsoober>();
     public DbSet<Content> Contents => Set<Content>();
-    public DbSet<Polls.Models.Poll> Polls => Set<Polls.Models.Poll>();
+    public DbSet<Poll> Polls => Set<Poll>();
     public DbSet<Option> Options => Set<Option>();
     public DbSet<Voter> Voters => Set<Voter>();
 }

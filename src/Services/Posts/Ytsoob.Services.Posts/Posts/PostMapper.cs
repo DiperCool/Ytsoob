@@ -13,7 +13,7 @@ public class PostMapper : Profile
 {
     public PostMapper()
     {
-        CreateMap<Post, PostDto>();
+        CreateMap<Post, PostDto>().ForMember(x => x.Id, expression => expression.MapFrom(x => x.Id.Value));
         CreateMap<Content, ContentDto>()
             .ForMember(x => x.ContentText, expression => expression.MapFrom(x => x.ContentText.Value));
         CreateMap<CreatePostRequest, CreatePost>().ConstructUsing(req => new CreatePost(req.Content, req.Poll));

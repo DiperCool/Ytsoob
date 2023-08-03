@@ -46,7 +46,7 @@ public class MailKitEmailSender : IEmailSender
                 emailObject.MailBody
             );
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex.Message, ex);
         }

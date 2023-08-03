@@ -8,7 +8,7 @@ using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Polls.Feature.Voting.v1.Vote.Events;
 
-public record VoterVotedDomainEvent(Models.Poll Poll, OptionId OptionId, long YtsooberId) : DomainEvent;
+public record VoterVotedDomainEvent(Poll Poll, OptionId OptionId, long YtsooberId) : DomainEvent;
 
 public class Vote : IDomainEventHandler<VoterVotedDomainEvent>
 {

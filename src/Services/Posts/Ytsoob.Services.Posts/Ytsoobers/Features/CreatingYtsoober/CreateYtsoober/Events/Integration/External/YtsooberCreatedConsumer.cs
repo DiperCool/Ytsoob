@@ -17,6 +17,8 @@ public class YtsooberCreatedConsumer : IConsumer<YtsooberCreatedV1>
     public async Task Consume(ConsumeContext<YtsooberCreatedV1> context)
     {
         var message = context.Message;
-        await _commandProcessor.SendAsync(new CreateYtsoober(message.Id, message.IdentityId, message.Username, message.Email));
+        await _commandProcessor.SendAsync(
+            new CreateYtsoober(message.Id, message.IdentityId, message.Username, message.Email, message.Profile.Avatar)
+        );
     }
 }

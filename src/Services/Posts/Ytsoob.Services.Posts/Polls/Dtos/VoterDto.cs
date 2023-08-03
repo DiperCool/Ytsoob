@@ -1,11 +1,8 @@
-using Ytsoob.Services.Posts.Polls.Models;
+namespace Ytsoob.Services.Posts.Polls.Dtos;
 
-namespace Ytsoob.Services.Posts.Users.Features.Models;
-
-public class Ytsoober
+public class VoterDto
 {
     public long Id { get; set; }
-    public Guid IdentityId { get; set; }
     public string Email { get; set; } = string.Empty;
     public string? Username { get; set; }
     public string? Avatar { get; set; }

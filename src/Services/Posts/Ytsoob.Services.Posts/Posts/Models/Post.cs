@@ -16,7 +16,7 @@ namespace Ytsoob.Services.Posts.Posts.Models;
 public class Post : Aggregate<PostId>
 {
     public Content Content { get; private set; } = default!;
-    public Polls.Models.Poll? Poll { get; private set; }
+    public Poll? Poll { get; private set; }
 
     public Post(PostId postId, Content content, Poll? poll)
     {

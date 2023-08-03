@@ -13,7 +13,7 @@ public interface IPostsDbContext
     DbSet<Post> Posts { get; }
     DbSet<Ytsoober> Ytsoobers { get; }
     DbSet<Content> Contents { get; }
-    DbSet<Polls.Models.Poll> Polls { get; }
+    DbSet<Poll> Polls { get; }
     DbSet<Option> Options { get; }
     DbSet<Voter> Voters { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

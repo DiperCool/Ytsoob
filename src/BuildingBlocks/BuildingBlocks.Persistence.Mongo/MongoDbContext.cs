@@ -51,7 +51,7 @@ public class MongoDbContext : IMongoDbContext, ITxDbContextExecution
 
                 await Session.CommitTransactionAsync(cancellationToken);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 await Session.AbortTransactionAsync(cancellationToken);
                 _commands.Clear();

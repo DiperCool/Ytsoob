@@ -35,7 +35,7 @@ public class RetryBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TR
             return await next();
 
         var circuitBreaker = Policy<TResponse>
-            .Handle<System.Exception>()
+            .Handle<Exception>()
             .CircuitBreakerAsync(
                 retryHandler.ExceptionsAllowedBeforeCircuitTrip,
                 TimeSpan.FromMilliseconds(5000),
@@ -44,7 +44,7 @@ public class RetryBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TR
             );
 
         var retryPolicy = Policy<TResponse>
-            .Handle<System.Exception>()
+            .Handle<Exception>()
             .WaitAndRetryAsync(
                 retryHandler.RetryAttempts,
                 retryAttempt =>

@@ -18,7 +18,7 @@ public class SingleAnswerPollAlg : IPollStrategy
 
     public string PollType => "singlePollAnswerType";
 
-    public async Task Vote(Models.Poll poll, OptionId optionId, long voterId)
+    public async Task Vote(Poll poll, OptionId optionId, long voterId)
     {
         Voter? voter = await _postsDbContext.Voters.FirstOrDefaultAsync(
             x => x.YtsooberId == voterId && x.Option.PollId == poll.Id

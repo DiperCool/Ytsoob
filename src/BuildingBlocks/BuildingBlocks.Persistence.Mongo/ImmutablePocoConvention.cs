@@ -66,7 +66,7 @@ namespace BuildingBlocks.Persistence.Mongo
 
         private static bool ParameterMatchProperty(ParameterInfo parameter, PropertyInfo property)
         {
-            return string.Equals(property.Name, parameter.Name, System.StringComparison.InvariantCultureIgnoreCase)
+            return string.Equals(property.Name, parameter.Name, StringComparison.InvariantCultureIgnoreCase)
                 && parameter.ParameterType == property.PropertyType;
         }
 

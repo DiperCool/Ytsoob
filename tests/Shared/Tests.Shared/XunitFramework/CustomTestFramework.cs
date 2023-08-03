@@ -1,7 +1,7 @@
 using System.Reflection;
 using Xunit.Sdk;
 
-[assembly: Xunit.TestFramework("Tests.Shared.XunitFramework.CustomTestFramework", "Tests.Shared")]
+[assembly: TestFramework("Tests.Shared.XunitFramework.CustomTestFramework", "Tests.Shared")]
 
 namespace Tests.Shared.XunitFramework;
 
@@ -143,13 +143,13 @@ public class CustomTestFramework : XunitTestFramework
         ) =>
             new CustomTestMethodRunner(
                 testMethod,
-                this.Class,
+                Class,
                 method,
                 testCases,
-                this.DiagnosticMessageSink,
-                this.MessageBus,
-                new ExceptionAggregator(this.Aggregator),
-                this.CancellationTokenSource,
+                DiagnosticMessageSink,
+                MessageBus,
+                new ExceptionAggregator(Aggregator),
+                CancellationTokenSource,
                 constructorArguments
             ).RunAsync();
     }

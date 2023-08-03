@@ -69,7 +69,7 @@ public class MongoTxBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
             return response;
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
             await _dbContext.RollbackTransaction(cancellationToken);
             throw;
