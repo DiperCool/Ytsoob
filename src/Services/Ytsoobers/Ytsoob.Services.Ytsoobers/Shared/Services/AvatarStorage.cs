@@ -8,6 +8,7 @@ public class AvatarStorage : IAvatarStorage
 {
     private IMinioService _minioService;
     private const string BucketName = "avatars";
+
     public AvatarStorage(IMinioService minioService)
     {
         _minioService = minioService;
@@ -16,6 +17,6 @@ public class AvatarStorage : IAvatarStorage
     public async Task<string?> UploadAvatarAsync(IFormFile file, CancellationToken cancellationToken)
     {
         await _minioService.CreateBucketIfNotExistsAsync(BucketName, new ReadonlyBucketPolicy(), cancellationToken);
-        return await _minioService.AddItemAsync(BucketName, Guid.NewGuid().ToString(), file, cancellationToken);
+        return await _minioService.AddItemAsync(BucketName, file, cancellationToken);
     }
 }

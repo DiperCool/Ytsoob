@@ -1,8 +1,8 @@
 using BuildingBlocks.Core.Domain;
-using Ytsoob.Services.Posts.Poll.ValueObjects;
+using Ytsoob.Services.Posts.Polls.ValueObjects;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
-namespace Ytsoob.Services.Posts.Poll.Models;
+namespace Ytsoob.Services.Posts.Polls.Models;
 
 public class Voter : Entity<long>
 {

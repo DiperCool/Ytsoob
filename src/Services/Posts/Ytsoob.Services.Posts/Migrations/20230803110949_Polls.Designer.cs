@@ -13,7 +13,7 @@ using Ytsoob.Services.Posts.Shared.Data;
 namespace Ytsoob.Services.Posts.Migrations
 {
     [DbContext(typeof(PostsDbContext))]
-    [Migration("20230802144218_Polls")]
+    [Migration("20230803110949_Polls")]
     partial class Polls
     {
         /// <inheritdoc />
@@ -82,7 +82,7 @@ namespace Ytsoob.Services.Posts.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("created_by");
 
-                    b.Property<long?>("PollId")
+                    b.Property<long>("PollId")
                         .HasColumnType("bigint")
                         .HasColumnName("poll_id");
 
@@ -114,6 +114,11 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint")
                         .HasColumnName("created_by");
+
+                    b.Property<string>("PollAnswerType")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("poll_answer_type");
 
                     b.Property<long>("PostId")
                         .HasColumnType("bigint")
@@ -268,9 +273,11 @@ namespace Ytsoob.Services.Posts.Migrations
 
             modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Option", b =>
                 {
-                    b.HasOne("Ytsoob.Services.Posts.Poll.Models.Poll", null)
+                    b.HasOne("Ytsoob.Services.Posts.Poll.Models.Poll", "Poll")
                         .WithMany("Options")
                         .HasForeignKey("PollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_options_polls_poll_id");
 
                     b.OwnsOne("Ytsoob.Services.Posts.Poll.ValueObjects.Fiction", "Fiction", b1 =>
@@ -338,6 +345,8 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.Navigation("Fiction")
                         .IsRequired();
 
+                    b.Navigation("Poll");
+
                     b.Navigation("Title")
                         .IsRequired();
                 });
@@ -357,14 +366,14 @@ namespace Ytsoob.Services.Posts.Migrations
             modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Voter", b =>
                 {
                     b.HasOne("Ytsoob.Services.Posts.Poll.Models.Option", "Option")
-                        .WithMany("Voters")
+                        .WithMany()
                         .HasForeignKey("OptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_voters_options_option_id");
 
                     b.HasOne("Ytsoob.Services.Posts.Users.Features.Models.Ytsoober", "Ytsoober")
-                        .WithMany("Voting")
+                        .WithMany()
                         .HasForeignKey("YtsooberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -373,11 +382,6 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.Navigation("Option");
 
                     b.Navigation("Ytsoober");
-                });
-
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Option", b =>
-                {
-                    b.Navigation("Voters");
                 });
 
             modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Poll", b =>
@@ -391,11 +395,6 @@ namespace Ytsoob.Services.Posts.Migrations
                         .IsRequired();
 
                     b.Navigation("Poll");
-                });
-
-            modelBuilder.Entity("Ytsoob.Services.Posts.Users.Features.Models.Ytsoober", b =>
-                {
-                    b.Navigation("Voting");
                 });
 #pragma warning restore 612, 618
         }

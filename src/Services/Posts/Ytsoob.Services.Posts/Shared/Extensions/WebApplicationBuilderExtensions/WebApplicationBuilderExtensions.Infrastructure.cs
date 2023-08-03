@@ -17,6 +17,7 @@ using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
+using Ytsoob.Services.Posts.Polls.Algs;
 using Ytsoob.Services.Posts.Shared.Contracts;
 using Ytsoob.Services.Posts.Shared.Services;
 using Ytsoob.Services.Posts.Users;
@@ -53,33 +54,18 @@ public static partial class WebApplicationBuilderExtensions
                 var postgresOptions = builder.Configuration.BindOptions<PostgresOptions>();
                 var rabbitMqOptions = builder.Configuration.BindOptions<RabbitMqOptions>();
 
-
                 healthChecksBuilder
                     .AddNpgSql(
                         postgresOptions.ConnectionString,
                         name: "CustomersService-Postgres-Check",
-                        tags: new[]
-                              {
-                                  "postgres",
-                                  "database",
-                                  "infra",
-                                  "customers-service",
-                                  "live",
-                                  "ready"
-                              })
+                        tags: new[] { "postgres", "database", "infra", "customers-service", "live", "ready" }
+                    )
                     .AddRabbitMQ(
                         rabbitMqOptions.ConnectionString,
                         name: "CustomersService-RabbitMQ-Check",
                         timeout: TimeSpan.FromSeconds(3),
-                        tags: new[]
-                              {
-                                  "rabbitmq",
-                                  "bus",
-                                  "infra",
-                                  "customers-service",
-                                  "live",
-                                  "ready"
-                              });
+                        tags: new[] { "rabbitmq", "bus", "infra", "customers-service", "live", "ready" }
+                    );
             });
         }
 
@@ -129,6 +115,8 @@ public static partial class WebApplicationBuilderExtensions
 
         builder.AddCustomCaching();
 
+        builder.Services.AddTransient<IPollStrategy, SingleAnswerPollAlg>();
+        builder.Services.AddTransient<IPollStrategy, MultiplePollAnswerAlg>();
         return builder;
     }
 }

@@ -1,4 +1,4 @@
-namespace Ytsoob.Services.Posts.Poll.ValueObjects;
+namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class Fiction
 {

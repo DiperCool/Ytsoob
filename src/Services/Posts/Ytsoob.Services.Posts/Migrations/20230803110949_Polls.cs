@@ -18,6 +18,7 @@ namespace Ytsoob.Services.Posts.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false),
                     postid = table.Column<long>(name: "post_id", type: "bigint", nullable: false),
+                    pollanswertype = table.Column<string>(name: "poll_answer_type", type: "text", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     createdby = table.Column<long>(name: "created_by", type: "bigint", nullable: true)
                 },
@@ -42,7 +43,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     optiontitle = table.Column<string>(name: "option_title", type: "character varying(50)", maxLength: 50, nullable: false),
                     optioncount = table.Column<long>(name: "option_count", type: "bigint", nullable: false),
                     fiction = table.Column<long>(type: "bigint", nullable: false),
-                    pollid = table.Column<long>(name: "poll_id", type: "bigint", nullable: true),
+                    pollid = table.Column<long>(name: "poll_id", type: "bigint", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     createdby = table.Column<long>(name: "created_by", type: "bigint", nullable: true)
                 },
@@ -54,7 +55,8 @@ namespace Ytsoob.Services.Posts.Migrations
                         column: x => x.pollid,
                         principalSchema: "posts",
                         principalTable: "polls",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

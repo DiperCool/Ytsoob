@@ -1,7 +1,8 @@
 using BuildingBlocks.Core.Domain;
-using Ytsoob.Services.Posts.Poll.ValueObjects;
+using Ytsoob.Services.Posts.Polls.ValueObjects;
+using Ytsoob.Services.Posts.Users.Features.Models;
 
-namespace Ytsoob.Services.Posts.Poll.Models;
+namespace Ytsoob.Services.Posts.Polls.Models;
 
 public class Option : Entity<OptionId>
 {
@@ -9,24 +10,23 @@ public class Option : Entity<OptionId>
 
     public OptionCount Count { get; private set; } = null!;
     public Fiction Fiction { get; private set; } = null!;
-
-    private List<Voter> _voters = new();
-
-    public IReadOnlyCollection<Voter> Voters => _voters.ToList();
+    public PollId PollId { get; private set; }
+    public Poll Poll { get; set; }
 
     // ef core
     protected Option() { }
 
-    protected Option(OptionTitle title)
+    protected Option(OptionId id, OptionTitle title)
     {
+        Id = id;
         Title = title;
         Count = OptionCount.Of(0);
         Fiction = Fiction.Of(0);
     }
 
-    public static Option Create(OptionTitle title)
+    public static Option Create(OptionId optionId, OptionTitle title)
     {
-        Option option = new Option(title);
+        Option option = new Option(optionId, title);
         return option;
     }
 }

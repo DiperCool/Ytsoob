@@ -2,10 +2,10 @@ using BuildingBlocks.Core.Persistence.EfCore;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Ytsoob.Services.Posts.Poll.Models;
+using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Shared.Data;
 
-namespace Ytsoob.Services.Posts.Poll.Data;
+namespace Ytsoob.Services.Posts.Polls.Data;
 
 public class OptionEntityTypeConfiguration : IEntityTypeConfiguration<Option>
 {
@@ -42,6 +42,5 @@ public class OptionEntityTypeConfiguration : IEntityTypeConfiguration<Option>
             }
         );
         builder.Property(x => x.Created).HasDefaultValueSql(EfConstants.DateAlgorithm);
-        builder.Navigation(x => x.Voters).UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

@@ -1,6 +1,6 @@
 using BuildingBlocks.Abstractions.Domain;
 
-namespace Ytsoob.Services.Posts.Poll.ValueObjects;
+namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public record PollId : AggregateId
 {

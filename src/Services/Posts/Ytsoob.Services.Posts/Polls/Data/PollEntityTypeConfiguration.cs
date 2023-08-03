@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ytsoob.Services.Posts.Shared.Data;
 
-namespace Ytsoob.Services.Posts.Poll.Data;
+namespace Ytsoob.Services.Posts.Polls.Data;
 
 public class PollEntityTypeConfiguration : IEntityTypeConfiguration<Models.Poll>
 {
     public void Configure(EntityTypeBuilder<Models.Poll> builder)
     {
-        builder.ToTable(nameof(Poll).Pluralize().Underscore(), PostsDbContext.DefaultSchema);
+        builder.ToTable(nameof(Polls).Pluralize().Underscore(), PostsDbContext.DefaultSchema);
 
         // ids will use strongly typed-id value converter selector globally
         builder.Property(x => x.Id).ValueGeneratedNever();

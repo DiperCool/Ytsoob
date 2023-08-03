@@ -19,6 +19,7 @@ public class RemoveFileEndpoint : IMinimalEndpoint
     public string GroupName => ContentsConfig.Tag;
     public string PrefixRoute => ContentsConfig.PostPrefixUri;
     public double Version => 1.0;
+
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
@@ -27,8 +28,8 @@ public class RemoveFileEndpoint : IMinimalEndpoint
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status401Unauthorized)
-            .WithName("AddFiles")
-            .WithDisplayName("Add files.");
+            .WithName("RemoveFiles")
+            .WithDisplayName("Remove files.");
     }
 
     public async Task<IResult> HandleAsync(
@@ -42,12 +43,12 @@ public class RemoveFileEndpoint : IMinimalEndpoint
         Guard.Against.Null(command, nameof(command));
 
         using (Serilog.Context.LogContext.PushProperty("Endpoint", nameof(RemoveFiles)))
-            using (Serilog.Context.LogContext.PushProperty("PostId", command.PostId))
-            {
-                var result = await commandProcessor.SendAsync(command, cancellationToken);
+        using (Serilog.Context.LogContext.PushProperty("PostId", command.PostId))
+        {
+            var result = await commandProcessor.SendAsync(command, cancellationToken);
 
-                return Results.Ok(result);
-            }
+            return Results.Ok(result);
+        }
     }
 }
 
@@ -57,7 +58,11 @@ public class RemoveFilesHandler : ICommandHandler<RemoveFiles>
     private ICurrentUserService _currentUserService;
     private IContentBlobStorage _contentBlobStorage;
 
-    public RemoveFilesHandler(IPostsDbContext context, ICurrentUserService currentUserService, IContentBlobStorage contentBlobStorage)
+    public RemoveFilesHandler(
+        IPostsDbContext context,
+        ICurrentUserService currentUserService,
+        IContentBlobStorage contentBlobStorage
+    )
     {
         _context = context;
         _currentUserService = currentUserService;
@@ -67,10 +72,11 @@ public class RemoveFilesHandler : ICommandHandler<RemoveFiles>
     public async Task<Unit> Handle(RemoveFiles request, CancellationToken cancellationToken)
     {
         Post? post = await _context.Posts
-                         .Include(x => x.Content)
-                         .Where(x => x.CreatedBy == _currentUserService.YtsooberId && x.Id == request.PostId)
-                         .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-        if (post == null) throw new PostNotFoundException(request.PostId);
+            .Include(x => x.Content)
+            .Where(x => x.CreatedBy == _currentUserService.YtsooberId && x.Id == request.PostId)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        if (post == null)
+            throw new PostNotFoundException(request.PostId);
         foreach (string file in request.Files)
         {
             post.RemoveFileFromContent(file);

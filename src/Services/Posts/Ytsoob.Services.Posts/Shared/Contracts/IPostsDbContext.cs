@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Contents.Models;
-using Ytsoob.Services.Posts.Poll.Models;
+using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
@@ -13,7 +13,7 @@ public interface IPostsDbContext
     DbSet<Post> Posts { get; }
     DbSet<Ytsoober> Ytsoobers { get; }
     DbSet<Content> Contents { get; }
-    DbSet<Poll.Models.Poll> Polls { get; }
+    DbSet<Polls.Models.Poll> Polls { get; }
     DbSet<Option> Options { get; }
     DbSet<Voter> Voters { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

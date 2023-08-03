@@ -16,12 +16,7 @@ public class PostMapper : Profile
         CreateMap<Post, PostDto>();
         CreateMap<Content, ContentDto>()
             .ForMember(x => x.ContentText, expression => expression.MapFrom(x => x.ContentText.Value));
-        CreateMap<CreatePostRequest, CreatePost>().ConstructUsing(
-            req =>
-                new CreatePost(
-                    req.Content
-                )
-        );
+        CreateMap<CreatePostRequest, CreatePost>().ConstructUsing(req => new CreatePost(req.Content, req.Poll));
         CreateMap<UpdatePostContentRequest, UpdatePostContent>();
         CreateMap<DeletePostRequest, DeletePost>();
     }
