@@ -20,7 +20,7 @@ using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Polls.Feature.Voting.v1.Vote;
 
-public record Vote(PostId PostId, OptionId OptionId) : ITxCreateCommand;
+public record Vote(long PostId, long OptionId) : ITxCreateCommand;
 
 public class VoteEndpoint : ICommandMinimalEndpoint<Vote>
 {
@@ -31,13 +31,13 @@ public class VoteEndpoint : ICommandMinimalEndpoint<Vote>
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
-            .MapPost("/Create", HandleAsync)
+            .MapPost("/vote", HandleAsync)
             .RequireAuthorization()
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status401Unauthorized)
-            .WithName("Create Poll")
-            .WithDisplayName("Create Poll.");
+            .WithName("Vote")
+            .WithDisplayName("Vote.");
     }
 
     public async Task<IResult> HandleAsync(
@@ -73,14 +73,6 @@ public class VoteHandler : ICommandHandler<Vote>
 
     public async Task<Unit> Handle(Vote request, CancellationToken cancellationToken)
     {
-        Task<Ytsoober?> ytsooberTask = _postsDbContext.Ytsoobers.FirstOrDefaultAsync(
-            x => x.Id == _currentUserService.YtsooberId,
-            cancellationToken: cancellationToken
-        );
-        Task<Option?> optionTask = _postsDbContext.Options.FirstOrDefaultAsync(
-            x => x.Id == request.OptionId,
-            cancellationToken: cancellationToken
-        );
         Post? post = await _postsDbContext.Posts
             .Include(x => x.Poll)
             .ThenInclude(x => x.Options)
@@ -88,10 +80,16 @@ public class VoteHandler : ICommandHandler<Vote>
         if (post == null)
             throw new PostNotFoundException(request.PostId);
 
-        Option? option = await optionTask;
+        Option? option = await _postsDbContext.Options.FirstOrDefaultAsync(
+            x => x.Id == request.OptionId,
+            cancellationToken: cancellationToken
+        );
         if (option == null)
             throw new OptionNotFoundException(request.OptionId);
-        Ytsoober? ytsoober = await ytsooberTask;
+        Ytsoober? ytsoober = await _postsDbContext.Ytsoobers.FirstOrDefaultAsync(
+            x => x.Id == _currentUserService.YtsooberId,
+            cancellationToken: cancellationToken
+        );
         if (ytsoober == null)
             throw new YtsooberNotFoundException(_currentUserService.YtsooberId);
         post.VotePoll(ytsoober, option);

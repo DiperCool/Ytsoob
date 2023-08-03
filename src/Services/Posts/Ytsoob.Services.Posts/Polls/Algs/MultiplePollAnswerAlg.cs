@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.IdsGenerator;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Polls.ValueObjects;
@@ -25,7 +26,8 @@ public class MultiplePollAnswerAlg : IPollStrategy
         {
             return;
         }
-        Voter voterCreated = new Voter(voterId, optionId);
+
+        Voter voterCreated = new Voter(SnowFlakIdGenerator.NewId(), voterId, optionId);
         await _postsDbContext.Voters.AddAsync(voterCreated);
     }
 }

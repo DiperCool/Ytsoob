@@ -12,8 +12,9 @@ public class Voter : Entity<long>
     public OptionId OptionId { get; set; }
     public Option Option { get; set; } = null!;
 
-    public Voter(long ytsooberId, OptionId optionId)
+    public Voter(long id, long ytsooberId, OptionId optionId)
     {
+        Id = id;
         YtsooberId = ytsooberId;
         OptionId = optionId;
     }
