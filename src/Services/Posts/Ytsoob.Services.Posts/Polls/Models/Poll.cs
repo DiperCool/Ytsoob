@@ -16,24 +16,28 @@ public class Poll : Entity<PollId>
     public IReadOnlyCollection<Option> Options => _options.ToList();
     public PostId PostId { get; private set; }
     public Post Post { get; private set; }
+    public Question Question { get; private set; }
+    public TotalCountPoll TotalCountPoll { get; private set; }
     public string PollAnswerType { get; private set; }
 
     // ef core
     protected Poll() { }
 
-    protected Poll(PollId id, IEnumerable<Option> options, string pollAnswerType)
+    protected Poll(PollId id, Question question, IEnumerable<Option> options, string pollAnswerType)
     {
         Id = id;
+        Question = question;
         _options = options.ToList();
         PollAnswerType = pollAnswerType;
+        TotalCountPoll = TotalCountPoll.Of(0);
     }
 
-    public static Poll Create(PollId id, IEnumerable<string> options, string pollAnswerType)
+    public static Poll Create(PollId id, Question question, IEnumerable<string> options, string pollAnswerType)
     {
         IEnumerable<Option> optionsMap = options.Select(
             x => Option.Create(OptionId.Of(SnowFlakIdGenerator.NewId()), OptionTitle.Of(x))
         );
-        Poll poll = new Poll(id, optionsMap, pollAnswerType);
+        Poll poll = new Poll(id, question, optionsMap, pollAnswerType);
         return poll;
     }
 
@@ -42,6 +46,30 @@ public class Poll : Entity<PollId>
         if (_options.All(x => x.Id != option.Id))
         {
             throw new ArgumentException("Poll doesn't have this option");
+        }
+
+        TotalCountPoll = TotalCountPoll.Of(TotalCountPoll.Value + 1);
+        option.Vote(voter);
+        RecalculateFictions();
+    }
+
+    public void Unvote(Ytsoober voter, Option option)
+    {
+        if (_options.All(x => x.Id != option.Id))
+        {
+            throw new ArgumentException("Poll doesn't have this option");
+        }
+
+        TotalCountPoll = TotalCountPoll.Of(TotalCountPoll.Value - 1);
+        option.Unvote(voter);
+        RecalculateFictions();
+    }
+
+    private void RecalculateFictions()
+    {
+        foreach (var option in _options)
+        {
+            option.RecalculateFiction(TotalCountPoll);
         }
     }
 }

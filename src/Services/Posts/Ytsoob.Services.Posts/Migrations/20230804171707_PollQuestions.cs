@@ -5,24 +5,27 @@
 namespace Ytsoob.Services.Posts.Migrations
 {
     /// <inheritdoc />
-    public partial class YtsooberAvatar : Migration
+    public partial class PollQuestions : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "avatar",
-                table: "ytsoobers",
+                name: "question",
+                schema: "posts",
+                table: "polls",
                 type: "text",
-                nullable: true);
+                nullable: false,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "avatar",
-                table: "ytsoobers");
+                name: "question",
+                schema: "posts",
+                table: "polls");
         }
     }
 }

@@ -11,6 +11,12 @@ namespace Ytsoob.Services.Posts.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "avatar",
+                table: "ytsoobers",
+                type: "text",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "polls",
                 schema: "posts",
@@ -18,6 +24,7 @@ namespace Ytsoob.Services.Posts.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false),
                     postid = table.Column<long>(name: "post_id", type: "bigint", nullable: false),
+                    totalcountpoll = table.Column<long>(name: "total_count_poll", type: "bigint", nullable: false),
                     pollanswertype = table.Column<string>(name: "poll_answer_type", type: "text", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     createdby = table.Column<long>(name: "created_by", type: "bigint", nullable: true)
@@ -42,7 +49,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false),
                     optiontitle = table.Column<string>(name: "option_title", type: "character varying(50)", maxLength: 50, nullable: false),
                     optioncount = table.Column<long>(name: "option_count", type: "bigint", nullable: false),
-                    fiction = table.Column<long>(type: "bigint", nullable: false),
+                    fiction = table.Column<decimal>(type: "numeric", nullable: false),
                     pollid = table.Column<long>(name: "poll_id", type: "bigint", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     createdby = table.Column<long>(name: "created_by", type: "bigint", nullable: true)
@@ -149,6 +156,10 @@ namespace Ytsoob.Services.Posts.Migrations
             migrationBuilder.DropTable(
                 name: "polls",
                 schema: "posts");
+
+            migrationBuilder.DropColumn(
+                name: "avatar",
+                table: "ytsoobers");
         }
     }
 }

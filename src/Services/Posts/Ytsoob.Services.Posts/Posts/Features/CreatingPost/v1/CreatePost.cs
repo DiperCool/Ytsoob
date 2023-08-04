@@ -66,7 +66,12 @@ public class CreatePostHandler : ICommandHandler<CreatePost, CreatePostResponse>
 
         Poll? poll =
             request.Poll != null
-                ? Poll.Create(PollId.Of(SnowFlakIdGenerator.NewId()), request.Poll.Options, request.Poll.PollType)
+                ? Poll.Create(
+                    PollId.Of(SnowFlakIdGenerator.NewId()),
+                    Question.Of(request.Poll.Question),
+                    request.Poll.Options,
+                    request.Poll.PollType
+                )
                 : null;
 
         var post = Post.Create(PostId.Of(request.Id), content, poll);

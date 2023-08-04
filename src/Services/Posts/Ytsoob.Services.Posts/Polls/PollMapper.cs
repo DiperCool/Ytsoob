@@ -9,7 +9,10 @@ public class PollMapper : Profile
 {
     public PollMapper()
     {
-        CreateMap<Poll, PollDto>().ForMember(x => x.Id, expression => expression.MapFrom(poll => poll.Id.Value));
+        CreateMap<Poll, PollDto>()
+            .ForMember(x => x.Id, expression => expression.MapFrom(poll => poll.Id.Value))
+            .ForMember(x => x.Question, expression => expression.MapFrom(poll => poll.Question.Value));
+
         CreateMap<Option, OptionDto>()
             .ForMember(x => x.Id, expression => expression.MapFrom(poll => poll.Id.Value))
             .ForMember(x => x.Count, expression => expression.MapFrom(poll => poll.Count.Value))

@@ -5,10 +5,13 @@ using BuildingBlocks.Abstractions.CQRS.Queries;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
 using BuildingBlocks.Core.CQRS.Queries;
 using BuildingBlocks.Core.Persistence.EfCore;
+using BuildingBlocks.Security.Jwt;
 using FluentValidation;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Polls;
+using Ytsoob.Services.Posts.Polls.Dtos;
+using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Dtos;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Shared.Contracts;
@@ -73,16 +76,25 @@ public class GetPostsHandler : IRequestHandler<GetPosts, GetPostsResponse>
 {
     private IPostsDbContext _postsDbContext;
     private IMapper _mapper;
+    private ICacheYtsooberOptions _cacheYtsooberOptions;
+    private ICurrentUserService _currentUserService;
 
-    public GetPostsHandler(IPostsDbContext postsDbContext, IMapper mapper)
+    public GetPostsHandler(
+        IPostsDbContext postsDbContext,
+        IMapper mapper,
+        ICacheYtsooberOptions cacheYtsooberOptions,
+        ICurrentUserService currentUserService
+    )
     {
         _postsDbContext = postsDbContext;
         _mapper = mapper;
+        _cacheYtsooberOptions = cacheYtsooberOptions;
+        _currentUserService = currentUserService;
     }
 
     public async Task<GetPostsResponse> Handle(GetPosts request, CancellationToken cancellationToken)
     {
-        var products = await _postsDbContext.Posts
+        var posts = await _postsDbContext.Posts
             .Include(x => x.Poll)
             .ThenInclude(x => x!.Options)
             .Include(x => x.Content)
@@ -95,7 +107,24 @@ public class GetPostsHandler : IRequestHandler<GetPosts, GetPostsResponse>
                 request.PageSize,
                 cancellationToken: cancellationToken
             );
+        if (_currentUserService.IsAuthenticated)
+        {
+            await CalculateUserVotes(posts);
+        }
 
-        return new GetPostsResponse(products);
+        return new GetPostsResponse(posts);
+    }
+
+    private async Task CalculateUserVotes(ListResultModel<PostDto> posts)
+    {
+        foreach (PollDto? poll in posts.Items.Select(x => x.Poll))
+        {
+            if (poll == null)
+                continue;
+            poll.UserVotedOption = await _cacheYtsooberOptions.GetUsersOptionsInPollAsync(
+                poll.Id,
+                _currentUserService.YtsooberId
+            );
+        }
     }
 }

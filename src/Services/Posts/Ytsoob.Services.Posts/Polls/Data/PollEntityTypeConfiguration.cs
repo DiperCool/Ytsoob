@@ -17,6 +17,20 @@ public class PollEntityTypeConfiguration : IEntityTypeConfiguration<Models.Poll>
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.Id).IsUnique();
         builder.HasOne(x => x.Post).WithOne(x => x.Poll);
+        builder.OwnsOne(
+            x => x.TotalCountPoll,
+            a =>
+            {
+                a.Property(p => p.Value).HasColumnName(nameof(ValueObjects.TotalCountPoll).Underscore()).IsRequired();
+            }
+        );
+        builder.OwnsOne(
+            x => x.Question,
+            a =>
+            {
+                a.Property(p => p.Value).HasColumnName(nameof(ValueObjects.Question).Underscore()).IsRequired();
+            }
+        );
         builder.Property(x => x.Created).HasDefaultValueSql(EfConstants.DateAlgorithm);
         builder.Navigation(x => x.Options).UsePropertyAccessMode(PropertyAccessMode.Field);
     }

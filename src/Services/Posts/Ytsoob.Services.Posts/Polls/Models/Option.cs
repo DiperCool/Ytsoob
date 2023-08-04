@@ -29,4 +29,19 @@ public class Option : Entity<OptionId>
         Option option = new Option(optionId, title);
         return option;
     }
+
+    public void Vote(Ytsoober voter)
+    {
+        Count = OptionCount.Of(Count.Value + 1);
+    }
+
+    public void RecalculateFiction(TotalCountPoll totalCountPoll)
+    {
+        Fiction = Fiction.Of(totalCountPoll == 0 ? 0 : ((decimal)Count / totalCountPoll) * 100);
+    }
+
+    public void Unvote(Ytsoober voter)
+    {
+        Count = OptionCount.Of(Count.Value - 1);
+    }
 }

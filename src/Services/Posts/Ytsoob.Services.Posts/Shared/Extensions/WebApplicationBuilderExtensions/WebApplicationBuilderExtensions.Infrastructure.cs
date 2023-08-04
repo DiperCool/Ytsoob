@@ -112,7 +112,7 @@ public static partial class WebApplicationBuilderExtensions
         builder.Services.AddCustomValidators(Assembly.GetExecutingAssembly());
 
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+        builder.Services.AddTransient<ICacheYtsooberOptions, CacheYtsooberOptions>();
         builder.AddCustomCaching();
 
         builder.Services.AddTransient<IPollStrategy, SingleAnswerPollAlg>();

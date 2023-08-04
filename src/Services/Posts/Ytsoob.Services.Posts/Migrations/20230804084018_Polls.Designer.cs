@@ -13,8 +13,8 @@ using Ytsoob.Services.Posts.Shared.Data;
 namespace Ytsoob.Services.Posts.Migrations
 {
     [DbContext(typeof(PostsDbContext))]
-    [Migration("20230803180439_YtsooberAvatar")]
-    partial class YtsooberAvatar
+    [Migration("20230804084018_Polls")]
+    partial class Polls
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -290,8 +290,8 @@ namespace Ytsoob.Services.Posts.Migrations
                                 .HasColumnType("bigint")
                                 .HasColumnName("id");
 
-                            b1.Property<long>("Value")
-                                .HasColumnType("bigint")
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
                                 .HasColumnName("fiction");
 
                             b1.HasKey("OptionId");
@@ -364,7 +364,29 @@ namespace Ytsoob.Services.Posts.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_polls_posts_post_id");
 
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.TotalCountPoll", "TotalCountPoll", b1 =>
+                        {
+                            b1.Property<long>("PollId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("id");
+
+                            b1.Property<long>("Value")
+                                .HasColumnType("bigint")
+                                .HasColumnName("total_count_poll");
+
+                            b1.HasKey("PollId");
+
+                            b1.ToTable("polls", "posts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PollId")
+                                .HasConstraintName("fk_polls_polls_id");
+                        });
+
                     b.Navigation("Post");
+
+                    b.Navigation("TotalCountPoll")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Voter", b =>

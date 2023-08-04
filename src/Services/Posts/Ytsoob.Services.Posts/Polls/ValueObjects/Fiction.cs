@@ -2,14 +2,14 @@ namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class Fiction
 {
-    public Fiction(long value)
+    public Fiction(decimal value)
     {
         Value = value;
     }
 
-    public long Value { get; private set; }
+    public decimal Value { get; private set; }
 
-    public static Fiction Of(long value)
+    public static Fiction Of(decimal value)
     {
         if (value < 0)
         {
@@ -19,5 +19,5 @@ public class Fiction
         return new Fiction(value);
     }
 
-    public static implicit operator long(Fiction value) => value.Value;
+    public static implicit operator decimal(Fiction value) => value.Value;
 }

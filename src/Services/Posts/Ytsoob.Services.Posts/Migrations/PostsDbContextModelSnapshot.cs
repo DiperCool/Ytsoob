@@ -287,8 +287,8 @@ namespace Ytsoob.Services.Posts.Migrations
                                 .HasColumnType("bigint")
                                 .HasColumnName("id");
 
-                            b1.Property<long>("Value")
-                                .HasColumnType("bigint")
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
                                 .HasColumnName("fiction");
 
                             b1.HasKey("OptionId");
@@ -361,7 +361,52 @@ namespace Ytsoob.Services.Posts.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_polls_posts_post_id");
 
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.Question", "Question", b1 =>
+                        {
+                            b1.Property<long>("PollId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("id");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("question");
+
+                            b1.HasKey("PollId");
+
+                            b1.ToTable("polls", "posts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PollId")
+                                .HasConstraintName("fk_polls_polls_id");
+                        });
+
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.TotalCountPoll", "TotalCountPoll", b1 =>
+                        {
+                            b1.Property<long>("PollId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("id");
+
+                            b1.Property<long>("Value")
+                                .HasColumnType("bigint")
+                                .HasColumnName("total_count_poll");
+
+                            b1.HasKey("PollId");
+
+                            b1.ToTable("polls", "posts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PollId")
+                                .HasConstraintName("fk_polls_polls_id");
+                        });
+
                     b.Navigation("Post");
+
+                    b.Navigation("Question")
+                        .IsRequired();
+
+                    b.Navigation("TotalCountPoll")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Voter", b =>

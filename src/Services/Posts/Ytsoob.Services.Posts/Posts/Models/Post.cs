@@ -1,6 +1,7 @@
 using BuildingBlocks.Core.Domain;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Contents.ValueObjects;
+using Ytsoob.Services.Posts.Polls.Feature.Unvoting.v1.Events;
 using Ytsoob.Services.Posts.Polls.Feature.Voting.v1.Vote;
 using Ytsoob.Services.Posts.Polls.Feature.Voting.v1.Vote.Events;
 using Ytsoob.Services.Posts.Polls.Models;
@@ -64,5 +65,13 @@ public class Post : Aggregate<PostId>
             throw new PollIsEmptyException(Id);
         Poll.Vote(voter, option);
         AddDomainEvents(new VoterVotedDomainEvent(Poll, option.Id, voter.Id));
+    }
+
+    public void UnvotePoll(Ytsoober voter, Option option)
+    {
+        if (Poll == null)
+            throw new PollIsEmptyException(Id);
+        Poll.Unvote(voter, option);
+        AddDomainEvents(new VoterUnvotedDomainEvent(Poll, option.Id, voter.Id));
     }
 }

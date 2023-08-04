@@ -13,8 +13,8 @@ using Ytsoob.Services.Posts.Shared.Data;
 namespace Ytsoob.Services.Posts.Migrations
 {
     [DbContext(typeof(PostsDbContext))]
-    [Migration("20230803110949_Polls")]
-    partial class Polls
+    [Migration("20230804171707_PollQuestions")]
+    partial class PollQuestions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.ToTable("contents", "posts");
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Option", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Option", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint")
@@ -99,7 +99,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.ToTable("options", "posts");
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Poll", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Poll", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint")
@@ -138,7 +138,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.ToTable("polls", "posts");
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Voter", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Voter", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint")
@@ -218,6 +218,10 @@ namespace Ytsoob.Services.Posts.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("text")
+                        .HasColumnName("avatar");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text")
@@ -271,23 +275,23 @@ namespace Ytsoob.Services.Posts.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Option", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Option", b =>
                 {
-                    b.HasOne("Ytsoob.Services.Posts.Poll.Models.Poll", "Poll")
+                    b.HasOne("Ytsoob.Services.Posts.Polls.Models.Poll", "Poll")
                         .WithMany("Options")
                         .HasForeignKey("PollId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_options_polls_poll_id");
 
-                    b.OwnsOne("Ytsoob.Services.Posts.Poll.ValueObjects.Fiction", "Fiction", b1 =>
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.Fiction", "Fiction", b1 =>
                         {
                             b1.Property<long>("OptionId")
                                 .HasColumnType("bigint")
                                 .HasColumnName("id");
 
-                            b1.Property<long>("Value")
-                                .HasColumnType("bigint")
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
                                 .HasColumnName("fiction");
 
                             b1.HasKey("OptionId");
@@ -299,7 +303,7 @@ namespace Ytsoob.Services.Posts.Migrations
                                 .HasConstraintName("fk_options_options_id");
                         });
 
-                    b.OwnsOne("Ytsoob.Services.Posts.Poll.ValueObjects.OptionCount", "Count", b1 =>
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.OptionCount", "Count", b1 =>
                         {
                             b1.Property<long>("OptionId")
                                 .HasColumnType("bigint")
@@ -318,7 +322,7 @@ namespace Ytsoob.Services.Posts.Migrations
                                 .HasConstraintName("fk_options_options_id");
                         });
 
-                    b.OwnsOne("Ytsoob.Services.Posts.Poll.ValueObjects.OptionTitle", "Title", b1 =>
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.OptionTitle", "Title", b1 =>
                         {
                             b1.Property<long>("OptionId")
                                 .HasColumnType("bigint")
@@ -351,21 +355,66 @@ namespace Ytsoob.Services.Posts.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Poll", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Poll", b =>
                 {
                     b.HasOne("Ytsoob.Services.Posts.Posts.Models.Post", "Post")
                         .WithOne("Poll")
-                        .HasForeignKey("Ytsoob.Services.Posts.Poll.Models.Poll", "PostId")
+                        .HasForeignKey("Ytsoob.Services.Posts.Polls.Models.Poll", "PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_polls_posts_post_id");
 
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.Question", "Question", b1 =>
+                        {
+                            b1.Property<long>("PollId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("id");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("question");
+
+                            b1.HasKey("PollId");
+
+                            b1.ToTable("polls", "posts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PollId")
+                                .HasConstraintName("fk_polls_polls_id");
+                        });
+
+                    b.OwnsOne("Ytsoob.Services.Posts.Polls.ValueObjects.TotalCountPoll", "TotalCountPoll", b1 =>
+                        {
+                            b1.Property<long>("PollId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("id");
+
+                            b1.Property<long>("Value")
+                                .HasColumnType("bigint")
+                                .HasColumnName("total_count_poll");
+
+                            b1.HasKey("PollId");
+
+                            b1.ToTable("polls", "posts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PollId")
+                                .HasConstraintName("fk_polls_polls_id");
+                        });
+
                     b.Navigation("Post");
+
+                    b.Navigation("Question")
+                        .IsRequired();
+
+                    b.Navigation("TotalCountPoll")
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Voter", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Voter", b =>
                 {
-                    b.HasOne("Ytsoob.Services.Posts.Poll.Models.Option", "Option")
+                    b.HasOne("Ytsoob.Services.Posts.Polls.Models.Option", "Option")
                         .WithMany()
                         .HasForeignKey("OptionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -384,7 +433,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     b.Navigation("Ytsoober");
                 });
 
-            modelBuilder.Entity("Ytsoob.Services.Posts.Poll.Models.Poll", b =>
+            modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Poll", b =>
                 {
                     b.Navigation("Options");
                 });
