@@ -1,6 +1,4 @@
-using Ardalis.GuardClauses;
 using AutoMapper;
-using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.CQRS.Queries;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
 using BuildingBlocks.Core.CQRS.Queries;
@@ -9,9 +7,7 @@ using BuildingBlocks.Security.Jwt;
 using FluentValidation;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
-using Ytsoob.Services.Posts.Polls;
 using Ytsoob.Services.Posts.Polls.Dtos;
-using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Dtos;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Shared.Contracts;

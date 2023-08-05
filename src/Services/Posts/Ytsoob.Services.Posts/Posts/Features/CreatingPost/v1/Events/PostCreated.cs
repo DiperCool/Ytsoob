@@ -1,6 +1,5 @@
 using BuildingBlocks.Abstractions.CQRS.Events.Internal;
 using BuildingBlocks.Core.CQRS.Events.Internal;
-using BuildingBlocks.Core.Exception.Types;
 using Ytsoob.Services.Posts.Posts.Models;
 
 namespace Ytsoob.Services.Posts.Posts.Features.CreatingPost.v1.Events;

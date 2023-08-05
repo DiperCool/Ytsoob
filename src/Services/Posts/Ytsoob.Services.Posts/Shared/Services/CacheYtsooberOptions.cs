@@ -1,10 +1,7 @@
 using System.Globalization;
 using EasyCaching.Core;
-using Humanizer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using Ytsoob.Services.Posts.Polls;
-using Ytsoob.Services.Posts.Polls.ValueObjects;
 using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Shared.Services;

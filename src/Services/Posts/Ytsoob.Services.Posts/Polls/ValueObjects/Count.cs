@@ -1,5 +1,3 @@
-using Ardalis.GuardClauses;
-
 namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class OptionCount

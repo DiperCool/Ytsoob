@@ -2,7 +2,6 @@ using BuildingBlocks.Core.Domain;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Contents.ValueObjects;
 using Ytsoob.Services.Posts.Polls.Feature.Unvoting.v1.Events;
-using Ytsoob.Services.Posts.Polls.Feature.Voting.v1.Vote;
 using Ytsoob.Services.Posts.Polls.Feature.Voting.v1.Vote.Events;
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Exception;

@@ -1,5 +1,3 @@
-using Ytsoob.Services.Posts.Polls.Models;
-
 namespace Ytsoob.Services.Posts.Users.Features.Models;
 
 public class Ytsoober

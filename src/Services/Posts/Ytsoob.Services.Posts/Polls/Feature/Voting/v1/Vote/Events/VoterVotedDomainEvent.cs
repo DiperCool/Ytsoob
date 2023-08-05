@@ -2,8 +2,6 @@ using System.Globalization;
 using BuildingBlocks.Abstractions.CQRS.Events.Internal;
 using BuildingBlocks.Core.CQRS.Events.Internal;
 using EasyCaching.Core;
-using Microsoft.EntityFrameworkCore;
-using Ytsoob.Services.Posts.Exceptions.Domains;
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Polls.ValueObjects;
 using Ytsoob.Services.Posts.Shared.Contracts;

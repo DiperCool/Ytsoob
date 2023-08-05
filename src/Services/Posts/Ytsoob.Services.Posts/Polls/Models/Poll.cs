@@ -1,8 +1,5 @@
 using BuildingBlocks.Core.Domain;
-using BuildingBlocks.Core.Exception.Types;
 using BuildingBlocks.Core.IdsGenerator;
-using SharpCompress.Common;
-using Ytsoob.Services.Posts.Polls.Enums;
 using Ytsoob.Services.Posts.Polls.ValueObjects;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Posts.ValueObjects;

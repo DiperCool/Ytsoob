@@ -3,7 +3,6 @@ using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
 using BuildingBlocks.Security.Jwt;
 using Hellang.Middleware.ProblemDetails;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Exceptions;
 using Ytsoob.Services.Posts.Polls.Models;

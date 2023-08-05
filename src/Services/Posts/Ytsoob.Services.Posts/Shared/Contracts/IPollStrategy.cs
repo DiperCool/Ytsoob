@@ -1,7 +1,5 @@
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Polls.ValueObjects;
-using Ytsoob.Services.Posts.Posts.Models;
-using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Shared.Contracts;
 

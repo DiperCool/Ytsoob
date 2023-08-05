@@ -1,20 +1,14 @@
 using Ardalis.GuardClauses;
 using AutoMapper;
 using BuildingBlocks.Abstractions.CQRS.Commands;
-using BuildingBlocks.Abstractions.CQRS.Events.Internal;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
-using BuildingBlocks.Core.CQRS.Events.Internal;
 using BuildingBlocks.Security.Jwt;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Exceptions;
 using Ytsoob.Services.Posts.Polls.Models;
-using Ytsoob.Services.Posts.Polls.ValueObjects;
-using Ytsoob.Services.Posts.Posts;
 using Ytsoob.Services.Posts.Posts.Exception;
-using Ytsoob.Services.Posts.Posts.Features.CreatingPost.v1;
 using Ytsoob.Services.Posts.Posts.Models;
-using Ytsoob.Services.Posts.Posts.ValueObjects;
 using Ytsoob.Services.Posts.Shared.Contracts;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
