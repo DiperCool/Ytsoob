@@ -40,6 +40,7 @@ namespace Ytsoob.Services.Posts.Shared.Extensions.WebApplicationBuilderExtension
                 }
             );
             builder.Services.AddTransient<IReactionService, ReactionService>();
+            builder.Services.AddTransient<ICacheYtsooberReaction, CacheYtsooberReaction>();
             builder.Configuration.AddEnvironmentVariables("Ytsoob_customers_env_");
 
             // https://github.com/tonerdo/dotnet-env

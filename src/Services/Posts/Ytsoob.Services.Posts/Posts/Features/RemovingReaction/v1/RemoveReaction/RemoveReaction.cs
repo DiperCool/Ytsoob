@@ -47,19 +47,31 @@ public class RemoveReactionHandler : ICommandHandler<RemoveReaction>
 {
     private IReactionService _reactionService;
     private ICurrentUserService _currentUserService;
+    private ICacheYtsooberReaction _ytsooberReactionCache;
 
-    public RemoveReactionHandler(IReactionService reactionService, ICurrentUserService currentUserService)
+    public RemoveReactionHandler(
+        IReactionService reactionService,
+        ICurrentUserService currentUserService,
+        ICacheYtsooberReaction ytsooberReactionCache
+    )
     {
         _reactionService = reactionService;
         _currentUserService = currentUserService;
+        _ytsooberReactionCache = ytsooberReactionCache;
     }
 
     public async Task<Unit> Handle(RemoveReaction request, CancellationToken cancellationToken)
     {
+        PostId postId = PostId.Of(request.Id);
         await _reactionService.RemoveReactionAsync<Post, PostId>(
             PostId.Of(request.Id),
             _currentUserService.YtsooberId,
             cancellationToken
+        );
+        await _ytsooberReactionCache.RemoveCache(
+            postId.ToString(),
+            _currentUserService.YtsooberId,
+            typeof(Post).ToString()
         );
         return Unit.Value;
     }

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Polls.Dtos;
 using Ytsoob.Services.Posts.Posts.Dtos;
 using Ytsoob.Services.Posts.Posts.Models;
+using Ytsoob.Services.Posts.Posts.ValueObjects;
 using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Posts.Features.GettingPosts.v1.GetPosts;
@@ -73,19 +74,22 @@ public class GetPostsHandler : IRequestHandler<GetPosts, GetPostsResponse>
     private IPostsDbContext _postsDbContext;
     private IMapper _mapper;
     private ICacheYtsooberOptions _cacheYtsooberOptions;
+    private ICacheYtsooberReaction _cacheYtsooberReaction;
     private ICurrentUserService _currentUserService;
 
     public GetPostsHandler(
         IPostsDbContext postsDbContext,
         IMapper mapper,
         ICacheYtsooberOptions cacheYtsooberOptions,
-        ICurrentUserService currentUserService
+        ICurrentUserService currentUserService,
+        ICacheYtsooberReaction cacheYtsooberReaction
     )
     {
         _postsDbContext = postsDbContext;
         _mapper = mapper;
         _cacheYtsooberOptions = cacheYtsooberOptions;
         _currentUserService = currentUserService;
+        _cacheYtsooberReaction = cacheYtsooberReaction;
     }
 
     public async Task<GetPostsResponse> Handle(GetPosts request, CancellationToken cancellationToken)
@@ -107,6 +111,7 @@ public class GetPostsHandler : IRequestHandler<GetPosts, GetPostsResponse>
         if (_currentUserService.IsAuthenticated)
         {
             await CalculateUserVotes(posts);
+            await CalculateUserReaction(posts);
         }
 
         return new GetPostsResponse(posts);
@@ -121,6 +126,18 @@ public class GetPostsHandler : IRequestHandler<GetPosts, GetPostsResponse>
             poll.UserVotedOption = await _cacheYtsooberOptions.GetUsersOptionsInPollAsync(
                 poll.Id,
                 _currentUserService.YtsooberId
+            );
+        }
+    }
+
+    public async Task CalculateUserReaction(ListResultModel<PostDto> posts)
+    {
+        foreach (PostDto post in posts.Items)
+        {
+            post.YtsooberReaction = await _cacheYtsooberReaction.GetYtsooberReactionAsync(
+                PostId.Of(post.Id).ToString(),
+                _currentUserService.YtsooberId,
+                typeof(Post).ToString()
             );
         }
     }

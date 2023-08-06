@@ -48,20 +48,32 @@ public class AddReactionHandler : ICommandHandler<AddReaction>
 {
     private IReactionService _reactionService;
     private ICurrentUserService _currentUserService;
+    private ICacheYtsooberReaction _ytsooberReactionCache;
 
-    public AddReactionHandler(IReactionService reactionService, ICurrentUserService currentUserService)
+    public AddReactionHandler(
+        IReactionService reactionService,
+        ICurrentUserService currentUserService,
+        ICacheYtsooberReaction ytsooberReactionCache
+    )
     {
         _reactionService = reactionService;
         _currentUserService = currentUserService;
+        _ytsooberReactionCache = ytsooberReactionCache;
     }
 
     public async Task<Unit> Handle(AddReaction request, CancellationToken cancellationToken)
     {
+        PostId postId = PostId.Of(request.Id);
         await _reactionService.AddReactionAsync<Post, PostId>(
-            PostId.Of(request.Id),
+            postId,
             _currentUserService.YtsooberId,
             request.ReactionType,
             cancellationToken
+        );
+        await _ytsooberReactionCache.RemoveCache(
+            postId.ToString(),
+            _currentUserService.YtsooberId,
+            typeof(Post).ToString()
         );
         return Unit.Value;
     }
