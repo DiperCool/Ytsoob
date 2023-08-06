@@ -94,6 +94,7 @@ public class GetPostsHandler : IRequestHandler<GetPosts, GetPostsResponse>
             .Include(x => x.Poll)
             .ThenInclude(x => x!.Options)
             .Include(x => x.Content)
+            .Include(x => x.ReactionStats)
             .Where(x => x.CreatedBy == request.YtsooberId)
             .OrderByDescending(x => x.Created)
             .AsNoTracking()
