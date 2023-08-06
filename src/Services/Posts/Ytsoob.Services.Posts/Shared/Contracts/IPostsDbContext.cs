@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Models;
+using Ytsoob.Services.Posts.Reactions.Models;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Shared.Contracts;
@@ -16,5 +17,6 @@ public interface IPostsDbContext
     DbSet<Poll> Polls { get; }
     DbSet<Option> Options { get; }
     DbSet<Voter> Voters { get; }
+    DbSet<Reaction> Reactions { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

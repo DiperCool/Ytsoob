@@ -74,7 +74,12 @@ public class CreatePostHandler : ICommandHandler<CreatePost, CreatePostResponse>
                 )
                 : null;
 
-        var post = Post.Create(PostId.Of(request.Id), content, poll);
+        var post = Post.Create(
+            PostId.Of(request.Id),
+            content,
+            poll,
+            Reactions.Models.ReactionStats.Create(SnowFlakIdGenerator.NewId())
+        );
         await _postsDbContext.Posts.AddAsync(post, cancellationToken);
         await _postsDbContext.SaveChangesAsync(cancellationToken);
         return new CreatePostResponse(_mapper.Map<PostDto>(post));

@@ -9,20 +9,25 @@ using Ytsoob.Services.Posts.Posts.Features.CreatingPost.v1.Events;
 using Ytsoob.Services.Posts.Posts.Features.DeletingPost;
 using Ytsoob.Services.Posts.Posts.Features.UpdatingTextPost.v1.Events;
 using Ytsoob.Services.Posts.Posts.ValueObjects;
+using Ytsoob.Services.Posts.Reactions.Enums;
+using Ytsoob.Services.Posts.Reactions.Models;
+using Ytsoob.Services.Posts.Shared.Contracts;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Posts.Models;
 
-public class Post : Aggregate<PostId>
+public class Post : Aggregate<PostId>, IEntityWithReactions<PostId>
 {
     public Content Content { get; private set; } = default!;
     public Poll? Poll { get; private set; }
+    public ReactionStats ReactionStats { get; private set; }
 
-    public Post(PostId postId, Content content, Poll? poll)
+    public Post(PostId postId, Content content, Poll? poll, ReactionStats reactionStats)
     {
         Id = postId;
         Content = content;
         Poll = poll;
+        ReactionStats = reactionStats;
     }
 
     // ef
@@ -34,9 +39,9 @@ public class Post : Aggregate<PostId>
         AddDomainEvents(new PostContentUpdated(Id, contentText, Content.Files));
     }
 
-    public static Post Create(PostId postId, Content content, Poll? poll)
+    public static Post Create(PostId postId, Content content, Poll? poll, ReactionStats reactionStats)
     {
-        Post post = new Post(postId, content, poll);
+        Post post = new Post(postId, content, poll, reactionStats);
         post.AddDomainEvents(new PostCreated(post));
         return post;
     }
@@ -72,5 +77,15 @@ public class Post : Aggregate<PostId>
             throw new PollIsEmptyException(Id);
         Poll.Unvote(voter, option);
         AddDomainEvents(new VoterUnvotedDomainEvent(Poll, option.Id, voter.Id));
+    }
+
+    public void AddReaction(ReactionType reactionType)
+    {
+        ReactionStats.AddReaction(reactionType);
+    }
+
+    public void RemoveReaction(ReactionType reactionType)
+    {
+        ReactionStats.RemoveReaction(reactionType);
     }
 }
