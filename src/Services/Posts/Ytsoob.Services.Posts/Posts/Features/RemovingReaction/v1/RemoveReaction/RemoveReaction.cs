@@ -3,7 +3,6 @@ using BuildingBlocks.Abstractions.CQRS.Commands;
 using BuildingBlocks.Abstractions.Web.MinimalApi;
 using BuildingBlocks.Security.Jwt;
 using Hellang.Middleware.ProblemDetails;
-using Ytsoob.Services.Posts.Posts.Features.AddingReaction.v1.AddReaction;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Posts.ValueObjects;
 using Ytsoob.Services.Posts.Shared.Contracts;
