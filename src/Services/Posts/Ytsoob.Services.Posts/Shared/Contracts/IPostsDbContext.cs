@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Ytsoob.Services.Posts.Comments.Models;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Models;
@@ -18,5 +19,8 @@ public interface IPostsDbContext
     DbSet<Option> Options { get; }
     DbSet<Voter> Voters { get; }
     DbSet<Reaction> Reactions { get; }
+    DbSet<BaseComment> BaseComments { get; }
+    DbSet<Comment> Comments { get; }
+    DbSet<RepliedComment> RepliedComments { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

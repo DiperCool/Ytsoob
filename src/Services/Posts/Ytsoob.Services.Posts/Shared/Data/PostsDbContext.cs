@@ -1,5 +1,6 @@
 using BuildingBlocks.Core.Persistence.EfCore;
 using Microsoft.EntityFrameworkCore;
+using Ytsoob.Services.Posts.Comments.Models;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Models;
@@ -31,4 +32,7 @@ public class PostsDbContext : EfDbContextBase, IPostsDbContext
     public DbSet<Option> Options => Set<Option>();
     public DbSet<Voter> Voters => Set<Voter>();
     public DbSet<Reaction> Reactions => Set<Reaction>();
+    public DbSet<BaseComment> BaseComments => Set<BaseComment>();
+    public DbSet<Comment> Comments => Set<Comment>();
+    public DbSet<RepliedComment> RepliedComments => Set<RepliedComment>();
 }
