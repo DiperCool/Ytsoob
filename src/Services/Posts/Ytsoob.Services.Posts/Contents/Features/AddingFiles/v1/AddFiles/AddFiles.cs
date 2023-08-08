@@ -12,7 +12,6 @@ using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Contents.Features.UpdatingPostContent.v1;
 
-
 public record AddFiles(long PostId, List<IFormFile> Files) : ITxUpdateCommand;
 
 public class AddFilesEndpoint : IMinimalEndpoint
@@ -20,6 +19,7 @@ public class AddFilesEndpoint : IMinimalEndpoint
     public string GroupName => ContentsConfig.Tag;
     public string PrefixRoute => ContentsConfig.PostPrefixUri;
     public double Version => 1.0;
+
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)
     {
         return builder
@@ -31,6 +31,7 @@ public class AddFilesEndpoint : IMinimalEndpoint
             .WithName("AddFiles")
             .WithDisplayName("Add files.");
     }
+
     public async Task<IResult> HandleAsync(
         HttpContext context,
         [FromQuery] long postId,
@@ -43,12 +44,12 @@ public class AddFilesEndpoint : IMinimalEndpoint
         Guard.Against.Null(postId, nameof(postId));
 
         using (Serilog.Context.LogContext.PushProperty("Endpoint", nameof(AddFilesEndpoint)))
-            using (Serilog.Context.LogContext.PushProperty("PostId", postId))
-            {
-                var result = await commandProcessor.SendAsync(new AddFiles(postId, files.ToList()), cancellationToken);
+        using (Serilog.Context.LogContext.PushProperty("PostId", postId))
+        {
+            var result = await commandProcessor.SendAsync(new AddFiles(postId, files.ToList()), cancellationToken);
 
-                return Results.Ok(result);
-            }
+            return Results.Ok(result);
+        }
     }
 }
 
@@ -59,7 +60,12 @@ public class AddFilesHandler : ICommandHandler<AddFiles>
     private ICurrentUserService _currentUserService;
     private IMapper _mapper;
 
-    public AddFilesHandler(IContentBlobStorage contentBlobStorage, IPostsDbContext postsDbContext, IMapper mapper, ICurrentUserService currentUserService)
+    public AddFilesHandler(
+        IContentBlobStorage contentBlobStorage,
+        IPostsDbContext postsDbContext,
+        IMapper mapper,
+        ICurrentUserService currentUserService
+    )
     {
         _contentBlobStorage = contentBlobStorage;
         _postsDbContext = postsDbContext;
@@ -70,15 +76,18 @@ public class AddFilesHandler : ICommandHandler<AddFiles>
     public async Task<Unit> Handle(AddFiles request, CancellationToken cancellationToken)
     {
         Post? post = await _postsDbContext.Posts
-                         .Include(x => x.Content)
-                         .Where(x => x.CreatedBy == _currentUserService.YtsooberId && x.Id == request.PostId)
-                         .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-        if (post == null) throw new PostNotFoundException(request.PostId);
-        if (!request.Files.Any()) throw new BadRequestException("Files empty");
+            .Include(x => x.Content)
+            .Where(x => x.CreatedBy == _currentUserService.YtsooberId && x.Id == request.PostId)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        if (post == null)
+            throw new PostNotFoundException(request.PostId);
+        if (!request.Files.Any())
+            throw new BadRequestException("Files empty");
         IEnumerable<string?> files = await _contentBlobStorage.UploadFilesAsync(request.Files, cancellationToken);
         foreach (var file in files)
         {
-            if (file != null) post.AddFileToContent(file);
+            if (file != null)
+                post.AddFileToContent(file);
         }
 
         _postsDbContext.Posts.Update(post);

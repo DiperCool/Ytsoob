@@ -30,7 +30,7 @@ public class ReplyCommentValidator : AbstractValidator<ReplyComment>
 public class ReplyCommentEndpoint : ICommandMinimalEndpoint<ReplyComment>
 {
     public string GroupName => CommentsConfigs.Tag;
-    public string PrefixRoute => CommentsConfigs.PostPrefixUri;
+    public string PrefixRoute => CommentsConfigs.CommentPrefixUri;
     public double Version => 1.0;
 
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)

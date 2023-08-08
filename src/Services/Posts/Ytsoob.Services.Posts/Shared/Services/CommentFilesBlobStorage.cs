@@ -4,12 +4,12 @@ using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Shared.Services;
 
-public class ContentBlobStorage : IContentBlobStorage
+public class CommentFilesBlobStorage : ICommentFilesBlobStorage
 {
     private IMinioService _minioService;
-    private const string Bucket = "posts";
+    private const string Bucket = "comments";
 
-    public ContentBlobStorage(IMinioService minioService)
+    public CommentFilesBlobStorage(IMinioService minioService)
     {
         _minioService = minioService;
     }

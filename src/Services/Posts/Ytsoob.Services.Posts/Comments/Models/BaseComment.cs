@@ -34,7 +34,7 @@ public abstract class BaseComment : Aggregate<CommentId>, IEntityWithReactions<C
 
     public void RemoveReaction(ReactionType reactionType)
     {
-        ReactionStats.AddReaction(reactionType);
+        ReactionStats.RemoveReaction(reactionType);
     }
 
     public void AddFile(string file)
@@ -42,7 +42,7 @@ public abstract class BaseComment : Aggregate<CommentId>, IEntityWithReactions<C
         Files.Add(file);
     }
 
-    private void RemoveFile(string file)
+    public void RemoveFile(string file)
     {
         if (!Files.Contains(file))
         {
@@ -52,7 +52,7 @@ public abstract class BaseComment : Aggregate<CommentId>, IEntityWithReactions<C
         Files.Remove(file);
     }
 
-    private void UpdateContent(CommentContent content)
+    public void UpdateContent(CommentContent content)
     {
         Content = content;
     }

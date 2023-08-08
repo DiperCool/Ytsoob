@@ -28,7 +28,7 @@ public class AddCommentValidator : AbstractValidator<AddComment>
 public class AddCommentEndpoint : ICommandMinimalEndpoint<AddComment>
 {
     public string GroupName => CommentsConfigs.Tag;
-    public string PrefixRoute => CommentsConfigs.PostPrefixUri;
+    public string PrefixRoute => CommentsConfigs.CommentPrefixUri;
     public double Version => 1.0;
 
     public RouteHandlerBuilder MapEndpoint(IEndpointRouteBuilder builder)

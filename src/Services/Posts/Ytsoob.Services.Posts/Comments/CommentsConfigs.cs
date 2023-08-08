@@ -6,7 +6,7 @@ namespace Ytsoob.Services.Posts;
 public class CommentsConfigs : IModuleConfiguration
 {
     public const string Tag = "Comment";
-    public const string PostPrefixUri = $"{SharedModulesConfiguration.PostModulePrefixUri}/comments";
+    public const string CommentPrefixUri = $"{SharedModulesConfiguration.PostModulePrefixUri}/comments";
 
     public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {

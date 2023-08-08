@@ -1,7 +1,6 @@
 using Ytsoob.Services.Posts.Comments.ValueObjects;
 using Ytsoob.Services.Posts.Posts.ValueObjects;
 using Ytsoob.Services.Posts.Reactions.Models;
-using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Comments.Models;
 
