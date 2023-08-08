@@ -8,8 +8,6 @@ using Ytsoob.Services.Posts.Posts.Features.CreatingPost.v1;
 using Ytsoob.Services.Posts.Posts.Features.DeletingPost;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Reactions;
-using Ytsoob.Services.Posts.Reactions.Dtos;
-using Ytsoob.Services.Posts.Reactions.Models;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Posts;

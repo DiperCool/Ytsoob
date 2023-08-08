@@ -13,7 +13,7 @@ using Ytsoob.Services.Posts.Shared.Data;
 namespace Ytsoob.Services.Posts.Migrations
 {
     [DbContext(typeof(PostsDbContext))]
-    [Migration("20230807165237_Comments")]
+    [Migration("20230808075237_Comments")]
     partial class Comments
     {
         /// <inheritdoc />
@@ -391,8 +391,15 @@ namespace Ytsoob.Services.Posts.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("comment_id");
 
+                    b.Property<long>("RepliedToCommentId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("replied_to_comment_id");
+
                     b.HasIndex("CommentId")
                         .HasDatabaseName("ix_base_comments_comment_id");
+
+                    b.HasIndex("RepliedToCommentId")
+                        .HasDatabaseName("ix_base_comments_replied_to_comment_id");
 
                     b.HasDiscriminator().HasValue("RepliedComment");
                 });
@@ -794,7 +801,16 @@ namespace Ytsoob.Services.Posts.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_base_comments_base_comments_comment_id");
 
+                    b.HasOne("Ytsoob.Services.Posts.Comments.Models.BaseComment", "RepliedToComment")
+                        .WithMany()
+                        .HasForeignKey("RepliedToCommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_base_comments_base_comments_replied_to_comment_id");
+
                     b.Navigation("Comment");
+
+                    b.Navigation("RepliedToComment");
                 });
 
             modelBuilder.Entity("Ytsoob.Services.Posts.Polls.Models.Poll", b =>

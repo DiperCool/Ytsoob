@@ -1,8 +1,6 @@
-using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ytsoob.Services.Posts.Comments.Models;
-using Ytsoob.Services.Posts.Shared.Data;
 
 namespace Ytsoob.Services.Posts.Comments.Data;
 

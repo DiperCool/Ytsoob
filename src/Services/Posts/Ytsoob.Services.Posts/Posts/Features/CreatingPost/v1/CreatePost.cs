@@ -5,7 +5,6 @@ using BuildingBlocks.Core.Exception.Types;
 using BuildingBlocks.Core.IdsGenerator;
 using BuildingBlocks.Security.Jwt;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Posts.Contents.Models;
 using Ytsoob.Services.Posts.Contents.ValueObjects;
 using Ytsoob.Services.Posts.Polls.Models;

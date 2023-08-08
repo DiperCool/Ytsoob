@@ -6,6 +6,7 @@ namespace Ytsoob.Services.Posts.Comments.Models;
 
 public class Comment : BaseComment
 {
+    // ef core
     protected Comment() { }
 
     protected Comment(CommentId commentId, PostId postId, CommentContent content, ReactionStats reactionStats)

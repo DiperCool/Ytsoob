@@ -1,4 +1,3 @@
-using BuildingBlocks.Core.Persistence.EfCore;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

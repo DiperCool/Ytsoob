@@ -24,6 +24,7 @@ namespace Ytsoob.Services.Posts.Migrations
                     postid = table.Column<long>(name: "post_id", type: "bigint", nullable: false),
                     discriminator = table.Column<string>(type: "text", nullable: false),
                     commentid = table.Column<long>(name: "comment_id", type: "bigint", nullable: true),
+                    repliedtocommentid = table.Column<long>(name: "replied_to_comment_id", type: "bigint", nullable: true),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     createdby = table.Column<long>(name: "created_by", type: "bigint", nullable: true),
                     originalversion = table.Column<long>(name: "original_version", type: "bigint", nullable: false)
@@ -34,6 +35,13 @@ namespace Ytsoob.Services.Posts.Migrations
                     table.ForeignKey(
                         name: "fk_base_comments_base_comments_comment_id",
                         column: x => x.commentid,
+                        principalSchema: "posts",
+                        principalTable: "comments",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_base_comments_base_comments_replied_to_comment_id",
+                        column: x => x.repliedtocommentid,
                         principalSchema: "posts",
                         principalTable: "comments",
                         principalColumn: "id",
@@ -52,6 +60,12 @@ namespace Ytsoob.Services.Posts.Migrations
                 schema: "posts",
                 table: "comments",
                 column: "comment_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_base_comments_replied_to_comment_id",
+                schema: "posts",
+                table: "comments",
+                column: "replied_to_comment_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_comments_id",

@@ -8,7 +8,7 @@ public class CommentsMapper : Profile
 {
     public CommentsMapper()
     {
-        CreateMap<Comment, CommentDto>()
+        CreateMap<BaseComment, CommentDto>()
             .ForMember(x => x.Id, expression => expression.MapFrom(x => x.Id.Value))
             .ForMember(x => x.PostId, expression => expression.MapFrom(x => x.PostId.Value));
 
