@@ -10,4 +10,5 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj" />
   </ItemGroup>
 
+
 </Project>

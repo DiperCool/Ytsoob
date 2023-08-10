@@ -1,12 +1,12 @@
 using BuildingBlocks.Abstractions.Web.Module;
-using Ytsoob.Services.Posts.Shared;
+using Ytsoob.Services.Subscriptions.Shared;
 
-namespace Ytsoob.Services.Posts.Posts;
+namespace Ytsoob.Services.Subscriptions.Subscriptions;
 
-public class PostsConfigs : IModuleConfiguration
+public class SubscriptionsConfigs : IModuleConfiguration
 {
-    public const string Tag = "Post";
-    public const string PostPrefixUri = $"{SharedModulesConfiguration.PostModulePrefixUri}/posts";
+    public const string Tag = nameof(Subscriptions);
+    public const string PrefixUri = $"{SharedModulesConfiguration.ModulePrefixUri}/{Tag}";
 
     public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {

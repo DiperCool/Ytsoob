@@ -4,7 +4,7 @@ namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class OptionTitle
 {
-    public OptionTitle(string value)
+    protected OptionTitle(string value)
     {
         Value = value;
     }

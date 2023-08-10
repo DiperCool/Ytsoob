@@ -17,6 +17,7 @@ using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
+using Ytsoob.Services.Subscriptions.Ytsoobers;
 
 namespace Ytsoob.Services.Subscriptions.Shared.Extensions.WebApplicationBuilderExtensions;
 
@@ -104,7 +105,13 @@ public static partial class WebApplicationBuilderExtensions
         // https://blog.maartenballiauw.be/post/2022/09/26/aspnet-core-rate-limiting-middleware.html
         builder.AddCustomRateLimit();
 
-        builder.AddCustomMassTransit((context, cfg) => { }, autoConfigEndpoints: false);
+        builder.AddCustomMassTransit(
+            (context, cfg) =>
+            {
+                cfg.AddUsersEndpoints(context);
+            },
+            autoConfigEndpoints: false
+        );
 
         builder.Services.AddCustomValidators(Assembly.GetExecutingAssembly());
 

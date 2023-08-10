@@ -2,7 +2,7 @@ namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class OptionCount
 {
-    public OptionCount(long value)
+    protected OptionCount(long value)
     {
         Value = value;
     }

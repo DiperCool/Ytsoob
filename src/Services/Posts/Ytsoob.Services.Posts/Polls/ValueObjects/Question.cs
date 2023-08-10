@@ -4,7 +4,7 @@ namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class Question
 {
-    public Question(string value)
+    protected Question(string value)
     {
         Value = value;
     }

@@ -2,7 +2,7 @@ namespace Ytsoob.Services.Posts.Polls.ValueObjects;
 
 public class Fiction
 {
-    public Fiction(decimal value)
+    protected Fiction(decimal value)
     {
         Value = value;
     }

@@ -39,6 +39,18 @@
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
       <Link>appsettings.json</Link>
     </Content>
+
+
+
+
+
+
+
+
+
   </ItemGroup>
+
+
+
 
 </Project>

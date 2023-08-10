@@ -7,7 +7,7 @@ namespace Ytsoob.Services.Subscriptions.Shared;
 
 public class SharedModulesConfiguration : ISharedModulesConfiguration
 {
-    public const string SubscriptionsModulePrefixUri = "api/v{version:apiVersion}/subscriptions";
+    public const string ModulePrefixUri = "api/v{version:apiVersion}";
 
     public WebApplicationBuilder AddSharedModuleServices(WebApplicationBuilder builder)
     {

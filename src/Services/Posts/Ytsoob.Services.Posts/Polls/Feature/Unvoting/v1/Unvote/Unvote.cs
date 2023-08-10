@@ -41,7 +41,7 @@ public class UnvoteEndpoint : ICommandMinimalEndpoint<Unvote>
             .Produces(StatusCodes.Status204NoContent)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<StatusCodeProblemDetails>(StatusCodes.Status401Unauthorized)
-            .WithName("Unvote")
+            .WithName("Unvote1")
             .WithDisplayName("Unvote.");
     }
 }
