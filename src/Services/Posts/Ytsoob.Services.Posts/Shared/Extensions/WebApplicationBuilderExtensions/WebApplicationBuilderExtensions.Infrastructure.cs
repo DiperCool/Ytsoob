@@ -79,7 +79,7 @@ namespace Ytsoob.Services.Posts.Shared.Extensions.WebApplicationBuilderExtension
             builder.AddCustomSerilog();
 
             builder.AddCustomVersioning();
-            builder.AddCustomSwagger(typeof(CustomersAssemblyInfo).Assembly);
+            builder.AddCustomSwagger(typeof(PostsAssemblyInfo).Assembly);
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddTransient<IContentBlobStorage, ContentBlobStorage>();
             builder.Services.AddCqrs(

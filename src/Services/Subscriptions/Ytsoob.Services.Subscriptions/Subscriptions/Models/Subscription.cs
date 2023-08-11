@@ -31,7 +31,9 @@ public class Subscription : Aggregate<SubscriptionId>
     )
     {
         Subscription subscription = new Subscription(id, title, description, price, ytsooberId);
-        subscription.AddDomainEvents(new SubscriptionCreatedDomainEvent(id, title, description, null, price));
+        subscription.AddDomainEvents(
+            new SubscriptionCreatedDomainEvent(id, title, description, null, price, ytsooberId)
+        );
         return subscription;
     }
 

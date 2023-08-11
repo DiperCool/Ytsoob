@@ -20,7 +20,7 @@ public class SubscriptionsEventMapper : IIntegrationEventMapper
         return domainEvent switch
         {
             SubscriptionCreatedDomainEvent e
-                => new SubscriptionCreatedV1(e.Id, e.Title, e.Description, e.Photo, e.Price),
+                => new SubscriptionCreatedV1(e.Id, e.Title, e.Description, e.Photo, e.Price, e.YtsooberId),
             SubscriptionUpdatedDomainEvent e
                 => new SubscriptioUpdatedV1(e.Id, e.Title, e.Description, e.Photo, e.Price),
             SubscriptionRemovedDomainEvent e => new SubscriptionRemovedV1(e.Id),

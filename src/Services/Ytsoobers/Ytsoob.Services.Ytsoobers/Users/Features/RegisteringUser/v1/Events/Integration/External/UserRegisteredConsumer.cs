@@ -17,6 +17,13 @@ public class UserRegisteredConsumer : IConsumer<UserRegisteredV1>
     public async Task Consume(ConsumeContext<UserRegisteredV1> context)
     {
         var userRegistered = context.Message;
-        await _commandProcessor.SendAsync(new CreateYtsoober(userRegistered.YtsooberId, userRegistered.IdentityId, userRegistered.Username,userRegistered.Email));
+        await _commandProcessor.SendAsync(
+            new CreateYtsoober(
+                userRegistered.YtsooberId,
+                userRegistered.IdentityId,
+                userRegistered.Username,
+                userRegistered.Email
+            )
+        );
     }
 }

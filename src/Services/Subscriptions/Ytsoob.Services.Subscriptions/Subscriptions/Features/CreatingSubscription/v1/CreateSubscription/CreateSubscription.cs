@@ -15,8 +15,14 @@ using Ytsoob.Services.Subscriptions.Subscriptions.ValueObjects;
 
 namespace Ytsoob.Services.Subscriptions.Subscriptions.Features.CreatingSubscription.v1.CreateSubscription;
 
-public record SubscriptionCreatedDomainEvent(long Id, string Title, string Description, string? Photo, decimal Price)
-    : DomainEvent;
+public record SubscriptionCreatedDomainEvent(
+    long Id,
+    string Title,
+    string Description,
+    string? Photo,
+    decimal Price,
+    long YtsooberId
+) : DomainEvent;
 
 public record CreateSubscription(string Title, string Description, decimal Price) : ITxCommand<SubscriptionDto>
 {
