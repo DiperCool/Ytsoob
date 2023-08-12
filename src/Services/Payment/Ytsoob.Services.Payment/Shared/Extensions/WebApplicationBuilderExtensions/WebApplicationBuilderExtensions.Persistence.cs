@@ -1,6 +1,5 @@
 using BuildingBlocks.Abstractions.Persistence;
 using BuildingBlocks.Persistence.EfCore.Postgres;
-using BuildingBlocks.Persistence.Mongo;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Payment.Shared.Contracts;
 using Ytsoob.Services.Payment.Shared.Data;

@@ -20,6 +20,7 @@ using BuildingBlocks.Web.Extensions;
 using Ytsoob.Services.Posts.Polls.Algs;
 using Ytsoob.Services.Posts.Shared.Contracts;
 using Ytsoob.Services.Posts.Shared.Services;
+using Ytsoob.Services.Posts.Subscriptions;
 using Ytsoob.Services.Posts.Users;
 
 namespace Ytsoob.Services.Posts.Shared.Extensions.WebApplicationBuilderExtensions
@@ -104,7 +105,8 @@ namespace Ytsoob.Services.Posts.Shared.Extensions.WebApplicationBuilderExtension
             builder.AddCustomMassTransit(
                 (context, cfg) =>
                 {
-                    cfg.AddUsersEndpoints(context);
+                    cfg.AddYtsoobersEndpoints(context);
+                    cfg.AddSubscriptionsEndpoints(context);
                 },
                 autoConfigEndpoints: false
             );

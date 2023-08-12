@@ -1,7 +1,10 @@
 using BuildingBlocks.Abstractions.Web.Module;
 using BuildingBlocks.Core;
+using Stripe;
+using Ytsoob.Services.Payment.Shared.Contracts;
 using Ytsoob.Services.Payment.Shared.Extensions.WebApplicationBuilderExtensions;
 using Ytsoob.Services.Payment.Shared.Extensions.WebApplicationExtensions;
+using Ytsoob.Services.Payment.Shared.Services;
 
 namespace Ytsoob.Services.Payment.Shared;
 
@@ -11,10 +14,11 @@ public class SharedModulesConfiguration : ISharedModulesConfiguration
 
     public WebApplicationBuilder AddSharedModuleServices(WebApplicationBuilder builder)
     {
+        StripeConfiguration.ApiKey = builder.Configuration.GetValue<string>("StripeSettings:ApiKey");
         builder.AddInfrastructure();
-
         builder.AddStorage();
 
+        builder.Services.AddTransient<IPaymentService, PaymentService>();
         return builder;
     }
 

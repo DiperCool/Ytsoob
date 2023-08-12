@@ -21,7 +21,7 @@ public class Post : Aggregate<PostId>, IEntityWithReactions<PostId>
     public Content Content { get; private set; } = default!;
     public Poll? Poll { get; private set; }
     public ReactionStats ReactionStats { get; private set; }
-    public Subscription.Models.Subscription? Subscription { get; private set; }
+    public Subscriptions.Models.Subscription? Subscription { get; private set; }
 
     public Post(PostId postId, Content content, Poll? poll, ReactionStats reactionStats)
     {

@@ -1,6 +1,8 @@
 using BuildingBlocks.Core.Persistence.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Ytsoob.Services.Payment.Shared.Contracts;
+using Ytsoob.Services.Payment.Subscriptions.Models;
+using Ytsoob.Services.Payment.Ytsoobers.Features.Models;
 
 namespace Ytsoob.Services.Payment.Shared.Data;
 
@@ -18,4 +20,7 @@ public class PaymentDbContext : EfDbContextBase, IPaymentDbContext
 
         base.OnModelCreating(modelBuilder);
     }
+
+    public DbSet<Ytsoober> Ytsoobers => Set<Ytsoober>();
+    public DbSet<Subscription> Subscriptions => Set<Subscription>();
 }

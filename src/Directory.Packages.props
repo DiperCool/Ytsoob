@@ -6,9 +6,12 @@
     <EnablePackageVersionOverride>true</EnablePackageVersionOverride>
   </PropertyGroup>
   <PropertyGroup>
-    <Version></Version>
-    <ApplicationVersion></ApplicationVersion>
-    <InformationalVersion></InformationalVersion>
+    <Version>
+    </Version>
+    <ApplicationVersion>
+    </ApplicationVersion>
+    <InformationalVersion>
+    </InformationalVersion>
   </PropertyGroup>
   <PropertyGroup>
     <IsPublishable>false</IsPublishable>
@@ -49,6 +52,7 @@
     <PackageVersion Include="Asp.Versioning.Abstractions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.NET.Build.Containers" Version="0.2.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="$(AspNetCoreVersion)" />
+    <PackageVersion Include="Stripe.net" Version="41.28.0" />
     <PackageVersion Include="System.Threading.RateLimiting" Version="$(AspNetCoreVersion)" />
     <PackageVersion Include="System.Net.Http.Json" Version="$(AspNetCoreVersion)" />
   </ItemGroup>
@@ -191,10 +195,9 @@
     <PackageVersion Include="EasyCaching.InMemory" Version="1.8.0" />
     <PackageVersion Include="EasyCaching.Core" Version="1.8.0" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageVersion Include="Minio" Version="5.0.0"/>
-    <PackageVersion Include="Polly" Version="7.2.4"/>
+    <PackageVersion Include="Minio" Version="5.0.0" />
+    <PackageVersion Include="Polly" Version="7.2.4" />
     <PackageVersion Include="Minio.AspNetCore.HealthChecks" Version="5.0.0" />
   </ItemGroup>
 </Project>

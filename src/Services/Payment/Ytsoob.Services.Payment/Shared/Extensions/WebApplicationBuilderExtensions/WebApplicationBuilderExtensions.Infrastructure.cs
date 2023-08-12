@@ -17,7 +17,7 @@ using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Ytsoob.Services.Payment.Ytsoobers;
 
 namespace Ytsoob.Services.Payment.Shared.Extensions.WebApplicationBuilderExtensions;
 
@@ -102,11 +102,16 @@ public static partial class WebApplicationBuilderExtensions
         );
 
         builder.Services.AddPostgresMessagePersistence(builder.Configuration);
-
         // https://blog.maartenballiauw.be/post/2022/09/26/aspnet-core-rate-limiting-middleware.html
         builder.AddCustomRateLimit();
 
-        builder.AddCustomMassTransit((context, cfg) => { }, autoConfigEndpoints: false);
+        builder.AddCustomMassTransit(
+            (context, cfg) =>
+            {
+                cfg.AddYtsoobersEndpoints(context);
+            },
+            autoConfigEndpoints: false
+        );
 
         builder.Services.AddCustomValidators(Assembly.GetExecutingAssembly());
 

@@ -22,7 +22,7 @@ public interface IPostsDbContext
     DbSet<BaseComment> BaseComments { get; }
     DbSet<Comment> Comments { get; }
     DbSet<RepliedComment> RepliedComments { get; }
-    DbSet<Subscription.Models.Subscription> Subscriptions { get; }
+    DbSet<Subscriptions.Models.Subscription> Subscriptions { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

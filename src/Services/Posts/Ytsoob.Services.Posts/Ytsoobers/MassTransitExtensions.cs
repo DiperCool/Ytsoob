@@ -8,7 +8,7 @@ namespace Ytsoob.Services.Posts.Users;
 
 internal static class MassTransitExtensions
 {
-    internal static void AddUsersEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
+    internal static void AddYtsoobersEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
     {
         cfg.ReceiveEndpoint(
             nameof(YtsooberCreatedV1).Underscore(),
