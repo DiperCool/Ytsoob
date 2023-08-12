@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ECommerce.Services.Customers.Migrations
+namespace Ytsoob.Services.Payment.Migrations
 {
     /// <inheritdoc />
     public partial class Subscriptions : Migration

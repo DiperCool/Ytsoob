@@ -8,7 +8,7 @@ using Ytsoob.Services.Subscriptions.Shared.Data;
 
 #nullable disable
 
-namespace ECommerce.Services.Customers.Migrations
+namespace Ytsoob.Services.Payment.Migrations
 {
     [DbContext(typeof(SubscriptionsDbContext))]
     partial class SubscriptionsDbContextModelSnapshot : ModelSnapshot

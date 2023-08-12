@@ -33,5 +33,6 @@ public class CreateSubscriptionHandler : ICommandHandler<CreateSubscription>
         );
         await _postsDbContext.Subscriptions.AddAsync(subscription, cancellationToken);
         await _postsDbContext.SaveChangesAsync(cancellationToken);
+        return Unit.Value;
     }
 }
