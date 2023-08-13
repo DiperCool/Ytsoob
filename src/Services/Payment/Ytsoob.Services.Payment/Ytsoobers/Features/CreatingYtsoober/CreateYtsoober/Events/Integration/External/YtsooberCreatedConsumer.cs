@@ -1,6 +1,6 @@
 using BuildingBlocks.Abstractions.CQRS.Commands;
 using MassTransit;
-using Ytsoob.Services.Posts.Users.Features.RegisteringUser.v1.CreatingUser;
+using Ytsoob.Services.Payment.Users.Features.RegisteringUser.v1.CreatingUser;
 using Ytsoob.Services.Shared.Ytsoobers.Ytsoobers.Events.v1.Integration;
 
 namespace Ytsoob.Services.Payment.Ytsoobers.Features.CreatingYtsoober.v1.Events.Integration.External;

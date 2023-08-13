@@ -17,6 +17,7 @@ using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
+using Ytsoob.Services.Subscriptions.Subscriptions;
 using Ytsoob.Services.Subscriptions.Ytsoobers;
 
 namespace Ytsoob.Services.Subscriptions.Shared.Extensions.WebApplicationBuilderExtensions;
@@ -108,6 +109,7 @@ public static partial class WebApplicationBuilderExtensions
         builder.AddCustomMassTransit(
             (context, cfg) =>
             {
+                cfg.AddSubscriptionPublishers();
                 cfg.AddUsersEndpoints(context);
             },
             autoConfigEndpoints: false

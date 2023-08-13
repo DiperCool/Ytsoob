@@ -23,10 +23,7 @@ public class UpdatedSubscriptionHandler : ICommandHandler<UpdateSubscription>
         );
         if (subscription == null)
             return Unit.Value;
-        subscription.Price = request.Price;
-        subscription.Description = request.Description;
-        subscription.Photo = request.Photo;
-        subscription.Title = request.Title;
+        subscription.Update(request.Title, request.Description, request.Photo, request.Price);
         _paymentDbContext.Subscriptions.Update(subscription);
         await _paymentDbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;

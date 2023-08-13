@@ -6,6 +6,7 @@ using Ytsoob.Services.Posts.Polls.Models;
 using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Reactions.Models;
 using Ytsoob.Services.Posts.Shared.Contracts;
+using Ytsoob.Services.Posts.Subscriptions.Models;
 using Ytsoob.Services.Posts.Users.Features.Models;
 
 namespace Ytsoob.Services.Posts.Shared.Data;
@@ -35,4 +36,5 @@ public class PostsDbContext : EfDbContextBase, IPostsDbContext
     public DbSet<BaseComment> BaseComments => Set<BaseComment>();
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<RepliedComment> RepliedComments => Set<RepliedComment>();
+    public DbSet<Subscription> Subscriptions => Set<Subscription>();
 }

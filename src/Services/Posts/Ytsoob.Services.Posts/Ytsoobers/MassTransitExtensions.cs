@@ -1,6 +1,8 @@
+using System.Text.Json;
 using Humanizer;
 using MassTransit;
 using RabbitMQ.Client;
+using Ytsoob.Services.Posts.Posts.Models;
 using Ytsoob.Services.Posts.Users.Features.RegisteringUser.v1.Events.Integration.External;
 using Ytsoob.Services.Shared.Ytsoobers.Ytsoobers.Events.v1.Integration;
 
@@ -8,10 +10,13 @@ namespace Ytsoob.Services.Posts.Users;
 
 internal static class MassTransitExtensions
 {
-    internal static void AddYtsoobersEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
+    internal static void AddYtsoobersEndpoints(
+        this IRabbitMqBusFactoryConfigurator cfg,
+        IBusRegistrationContext context
+    )
     {
         cfg.ReceiveEndpoint(
-            nameof(YtsooberCreatedV1).Underscore(),
+            $"{nameof(Posts).Underscore()}.{nameof(YtsooberCreatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings

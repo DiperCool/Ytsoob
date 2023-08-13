@@ -17,6 +17,7 @@ using BuildingBlocks.Security.Jwt;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Validation;
 using BuildingBlocks.Web.Extensions;
+using Ytsoob.Services.Payment.Subscriptions;
 using Ytsoob.Services.Payment.Ytsoobers;
 
 namespace Ytsoob.Services.Payment.Shared.Extensions.WebApplicationBuilderExtensions;
@@ -109,6 +110,7 @@ public static partial class WebApplicationBuilderExtensions
             (context, cfg) =>
             {
                 cfg.AddYtsoobersEndpoints(context);
+                cfg.AddSubscriptionsEndpoints(context);
             },
             autoConfigEndpoints: false
         );

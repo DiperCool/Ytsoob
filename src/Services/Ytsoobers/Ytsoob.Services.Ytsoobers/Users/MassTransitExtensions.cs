@@ -2,6 +2,7 @@
 using Humanizer;
 using MassTransit;
 using RabbitMQ.Client;
+using Ytsoob.Services.Shared.Ytsoobers.Ytsoobers.Events.v1.Integration;
 using Ytsoob.Services.Ytsoobers.Users.Features.RegisteringUser.v1.Events.Integration.External;
 
 namespace Ytsoob.Services.Ytsoobers.Users;
@@ -34,6 +35,16 @@ internal static class MassTransitExtensions
                 re.ConfigureConsumer<UserRegisteredConsumer>(context);
 
                 re.RethrowFaultedMessages();
+
+                cfg.Message<YtsooberCreatedV1>(
+                    e => e.SetEntityName($"{nameof(YtsooberCreatedV1).Underscore()}.input_exchange")
+                ); // name of the primary exchange
+                cfg.Publish<YtsooberCreatedV1>(e => e.ExchangeType = ExchangeType.Direct); // primary exchange type
+                cfg.Send<YtsooberCreatedV1>(e =>
+                {
+                    // route by message type to binding fanout exchange (exchange to exchange binding)
+                    e.UseRoutingKeyFormatter(sendContext => sendContext.Message.GetType().Name.Underscore());
+                });
             }
         );
     }

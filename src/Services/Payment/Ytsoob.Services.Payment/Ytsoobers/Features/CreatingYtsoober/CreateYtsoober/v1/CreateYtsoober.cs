@@ -4,7 +4,7 @@ using BuildingBlocks.Core.CQRS.Events.Internal;
 using Ytsoob.Services.Payment.Shared.Contracts;
 using Ytsoob.Services.Payment.Ytsoobers.Features.Models;
 
-namespace Ytsoob.Services.Posts.Users.Features.RegisteringUser.v1.CreatingUser;
+namespace Ytsoob.Services.Payment.Users.Features.RegisteringUser.v1.CreatingUser;
 
 public record YtsooberCreated(Ytsoober Ytsoober) : DomainEvent;
 

@@ -16,7 +16,7 @@ internal static class MassTransitExtensions
     )
     {
         cfg.ReceiveEndpoint(
-            nameof(SubscriptionCreatedV1).Underscore(),
+            $"{nameof(Payment).Underscore()}.{nameof(SubscriptionCreatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
@@ -43,7 +43,7 @@ internal static class MassTransitExtensions
         );
 
         cfg.ReceiveEndpoint(
-            nameof(SubscriptioUpdatedV1).Underscore(),
+            $"{nameof(Payment).Underscore()}.{nameof(SubscriptioUpdatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
@@ -51,7 +51,7 @@ internal static class MassTransitExtensions
 
                 // a replicated queue to provide high availability and data safety. available in RMQ 3.8+
                 re.SetQuorumQueue();
-
+                re.UseRetry(configurator => configurator.Intervals(TimeSpan.FromSeconds(10)));
                 re.Bind(
                     $"{nameof(SubscriptioUpdatedV1).Underscore()}.input_exchange",
                     e =>
@@ -69,7 +69,7 @@ internal static class MassTransitExtensions
             }
         );
         cfg.ReceiveEndpoint(
-            nameof(SubscriptionRemovedV1).Underscore(),
+            $"{nameof(Payment).Underscore()}.{nameof(SubscriptionRemovedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings

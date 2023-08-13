@@ -34,7 +34,7 @@ public class UpdateSubscriptionEndpoint : ICommandMinimalEndpoint<UpdateSubscrip
 {
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        UpdateSubscription request,
+        [FromBody] UpdateSubscription request,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken

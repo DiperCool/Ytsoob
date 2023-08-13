@@ -32,4 +32,9 @@ public class Subscription : Entity<long>
         Prices = product.Prices.Select(x => new PriceProduct(x.Price, x.PriceId, x.RecurringDays));
         ProductId = product.Id;
     }
+
+    public void Update(string title, string description, string? photo, decimal price)
+    {
+        (Title, Description, Photo, Price) = (title, description, photo, price);
+    }
 }

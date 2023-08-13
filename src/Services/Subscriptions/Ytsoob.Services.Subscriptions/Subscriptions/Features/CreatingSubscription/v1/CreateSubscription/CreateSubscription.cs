@@ -44,7 +44,7 @@ public class CreateSubscriptionEndpoint : ICommandMinimalEndpoint<CreateSubscrip
 {
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        CreateSubscription request,
+        [FromBody] CreateSubscription request,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken

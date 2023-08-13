@@ -21,7 +21,7 @@ public class RemovePhotoEndpoint : ICommandMinimalEndpoint<RemovePhoto>
 {
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        RemovePhoto request,
+        [FromBody] RemovePhoto request,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken

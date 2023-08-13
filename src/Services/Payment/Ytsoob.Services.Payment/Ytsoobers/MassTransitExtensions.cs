@@ -8,15 +8,18 @@ namespace Ytsoob.Services.Payment.Ytsoobers;
 
 internal static class MassTransitExtensions
 {
-    internal static void AddYtsoobersEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
+    internal static void AddYtsoobersEndpoints(
+        this IRabbitMqBusFactoryConfigurator cfg,
+        IBusRegistrationContext context
+    )
     {
         cfg.ReceiveEndpoint(
-            nameof(YtsooberCreatedV1).Underscore(),
+            $"{nameof(Payment).Underscore()}.{nameof(YtsooberCreatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
                 re.ConfigureConsumeTopology = false;
-
+                re.UseRetry(c => c.Intervals(TimeSpan.FromSeconds(10)));
                 // a replicated queue to provide high availability and data safety. available in RMQ 3.8+
                 re.SetQuorumQueue();
 

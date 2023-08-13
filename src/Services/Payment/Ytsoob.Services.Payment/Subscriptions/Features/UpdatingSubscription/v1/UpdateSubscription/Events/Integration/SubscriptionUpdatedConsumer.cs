@@ -15,7 +15,9 @@ public class SubscriptionUpdatedConsumer : IConsumer<SubscriptioUpdatedV1>
 
     public async Task Consume(ConsumeContext<SubscriptioUpdatedV1> context)
     {
-        SubscriptioUpdatedV1 subscriptionUpdatedV1 = context.Message;
-        await _commandProcessor.SendAsync(new )
+        SubscriptioUpdatedV1 message = context.Message;
+        await _commandProcessor.SendAsync(
+            new UpdateSubscription(message.Id, message.Title, message.Description, message.Photo, message.Price)
+        );
     }
 }

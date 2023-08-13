@@ -22,7 +22,7 @@ public class RemoveSubscriptionEndpoint : ICommandMinimalEndpoint<RemoveSubscrip
 {
     public async Task<IResult> HandleAsync(
         HttpContext context,
-        RemoveSubscription request,
+        [FromBody] RemoveSubscription request,
         ICommandProcessor commandProcessor,
         IMapper mapper,
         CancellationToken cancellationToken

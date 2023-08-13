@@ -11,7 +11,7 @@ internal static class MassTransitExtensions
     internal static void AddUsersEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
     {
         cfg.ReceiveEndpoint(
-            nameof(YtsooberCreatedV1).Underscore(),
+            $"{nameof(Subscriptions).Underscore()}.{nameof(YtsooberCreatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
