@@ -7,8 +7,8 @@ public class PriceProduct : Entity<PriceId>
 {
     protected PriceProduct() { }
 
-    public PriceProduct(decimal price, string pricePaymentId, int recurringDays) =>
-        (Price, PricePaymentId, RecurringDays) = (price, pricePaymentId, recurringDays);
+    public PriceProduct(PriceId priceId, decimal price, string pricePaymentId, int recurringDays) =>
+        (Id, Price, PricePaymentId, RecurringDays) = (priceId, price, pricePaymentId, recurringDays);
 
     public decimal Price { get; private set; }
     public string PricePaymentId { get; private set; } = default!;

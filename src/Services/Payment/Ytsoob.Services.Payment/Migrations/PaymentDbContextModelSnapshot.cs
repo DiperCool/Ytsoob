@@ -55,12 +55,12 @@ namespace Ytsoob.Services.Payment.Migrations
                         .HasColumnName("subscription_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_price_product");
+                        .HasName("pk_price_products");
 
                     b.HasIndex("SubscriptionId")
-                        .HasDatabaseName("ix_price_product_subscription_id");
+                        .HasDatabaseName("ix_price_products_subscription_id");
 
-                    b.ToTable("price_product", (string)null);
+                    b.ToTable("price_products", (string)null);
                 });
 
             modelBuilder.Entity("Ytsoob.Services.Payment.Subscriptions.Models.Subscription", b =>
@@ -160,7 +160,7 @@ namespace Ytsoob.Services.Payment.Migrations
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_price_product_subscriptions_subscription_id");
+                        .HasConstraintName("fk_price_products_subscriptions_subscription_id");
 
                     b.Navigation("Subscription");
                 });

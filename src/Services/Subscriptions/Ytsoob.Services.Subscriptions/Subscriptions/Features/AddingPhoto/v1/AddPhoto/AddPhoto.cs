@@ -82,7 +82,7 @@ public class AddFilesHandler : ICommandHandler<AddPhoto, AddPhotoResult>
         );
         if (subscription == null)
             throw new SubscriptionNotFoundException(request.SubId);
-        string? fileUrl = await _subBlobStorage.UploadFile(request.File);
+        string? fileUrl = await _subBlobStorage.UploadFileAsync(request.File, cancellationToken);
         if (string.IsNullOrEmpty(fileUrl))
             throw new BadRequestException("Failed to upload image");
         subscription.Update(subscription.Title, subscription.Description, fileUrl, subscription.Price);

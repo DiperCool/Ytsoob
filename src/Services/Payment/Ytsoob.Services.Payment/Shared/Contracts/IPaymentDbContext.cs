@@ -12,4 +12,5 @@ public interface IPaymentDbContext
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     DbSet<Ytsoober> Ytsoobers { get; }
     DbSet<Subscription> Subscriptions { get; }
+    DbSet<PriceProduct> PriceProducts { get; }
 }

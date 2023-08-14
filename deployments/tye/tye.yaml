@@ -42,8 +42,8 @@ services:
   env_file:
     - .env
   bindings:
-    - port: 9000
-- name: paymeny-service
+    - port: 9002
+- name: payment-service
   project: ../../src/Services/Payment/Ytsoob.Services.Payment.Api/Ytsoob.Services.Payment.Api.csproj
   env_file:
     - .env

@@ -18,11 +18,11 @@ internal static class MassTransitExtensions
             e.UseRoutingKeyFormatter(context => context.Message.GetType().Name.Underscore());
         });
 
-        cfg.Message<SubscriptioUpdatedV1>(
-            e => e.SetEntityName($"{nameof(SubscriptioUpdatedV1).Underscore()}.input_exchange")
+        cfg.Message<SubscriptionUpdatedV1>(
+            e => e.SetEntityName($"{nameof(SubscriptionUpdatedV1).Underscore()}.input_exchange")
         );
-        cfg.Publish<SubscriptioUpdatedV1>(e => e.ExchangeType = RabbitMQ.Client.ExchangeType.Direct); // primary exchange type
-        cfg.Send<SubscriptioUpdatedV1>(e =>
+        cfg.Publish<SubscriptionUpdatedV1>(e => e.ExchangeType = RabbitMQ.Client.ExchangeType.Direct); // primary exchange type
+        cfg.Send<SubscriptionUpdatedV1>(e =>
         {
             e.UseRoutingKeyFormatter(context => context.Message.GetType().Name.Underscore());
         });

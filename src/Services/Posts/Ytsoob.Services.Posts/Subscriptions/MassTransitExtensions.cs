@@ -16,7 +16,7 @@ internal static class MassTransitExtensions
     )
     {
         cfg.ReceiveEndpoint(
-            nameof(SubscriptionCreatedV1).Underscore(),
+            $"{nameof(Posts).Underscore()}.{nameof(SubscriptionCreatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
@@ -43,7 +43,7 @@ internal static class MassTransitExtensions
         );
 
         cfg.ReceiveEndpoint(
-            nameof(SubscriptioUpdatedV1).Underscore(),
+            $"{nameof(Posts).Underscore()}.{nameof(SubscriptionUpdatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
@@ -53,10 +53,10 @@ internal static class MassTransitExtensions
                 re.SetQuorumQueue();
 
                 re.Bind(
-                    $"{nameof(SubscriptioUpdatedV1).Underscore()}.input_exchange",
+                    $"{nameof(SubscriptionUpdatedV1).Underscore()}.input_exchange",
                     e =>
                     {
-                        e.RoutingKey = nameof(SubscriptioUpdatedV1).Underscore();
+                        e.RoutingKey = nameof(SubscriptionUpdatedV1).Underscore();
                         e.ExchangeType = ExchangeType.Direct;
                     }
                 );
@@ -69,7 +69,7 @@ internal static class MassTransitExtensions
             }
         );
         cfg.ReceiveEndpoint(
-            nameof(SubscriptionRemovedV1).Underscore(),
+            $"{nameof(Posts).Underscore()}.{nameof(SubscriptionRemovedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings

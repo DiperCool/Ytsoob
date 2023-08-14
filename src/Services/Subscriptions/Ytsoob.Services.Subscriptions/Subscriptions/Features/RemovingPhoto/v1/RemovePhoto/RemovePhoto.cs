@@ -82,7 +82,7 @@ public class RemovePhotoHandler : ICommandHandler<RemovePhoto>
             throw new SubscriptionNotFoundException(request.SubId);
         if (string.IsNullOrEmpty(subscription.Photo))
             throw new BadRequestException("Photo is not exists");
-        await _subBlobStorage.RemoveFile(subscription.Photo);
+        await _subBlobStorage.RemoveFileAsync(subscription.Photo, cancellationToken);
         subscription.Update(subscription.Title, subscription.Description, null, subscription.Price);
         _subscriptionsDbContext.Subscriptions.Update(subscription);
         await _subscriptionsDbContext.SaveChangesAsync(cancellationToken);

@@ -37,10 +37,10 @@ public class Subscription : Aggregate<SubscriptionId>
         return subscription;
     }
 
-    public void Update(Title title, Description description, string? photo, Price price)
+    public void Update(Title title, Description description, string? photo)
     {
-        (Title, Description, Photo, Price) = (title, description, photo, price);
-        AddDomainEvents(new SubscriptionUpdatedDomainEvent(Id, Title, Description, Photo, Price));
+        (Title, Description, Photo) = (title, description, photo);
+        AddDomainEvents(new SubscriptionUpdatedDomainEvent(Id, Title, Description, Photo));
     }
 
     public void Remove()

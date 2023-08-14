@@ -9,10 +9,12 @@ public record RemoveSubscription(long Id) : ICommand;
 public class RemoveSubscriptionHandler : ICommandHandler<RemoveSubscription>
 {
     private IPaymentDbContext _paymentDbContext;
+    private IPaymentService _paymentService;
 
-    public RemoveSubscriptionHandler(IPaymentDbContext postsDbContext)
+    public RemoveSubscriptionHandler(IPaymentDbContext postsDbContext, IPaymentService paymentService)
     {
         _paymentDbContext = postsDbContext;
+        _paymentService = paymentService;
     }
 
     public async Task<Unit> Handle(RemoveSubscription request, CancellationToken cancellationToken)
@@ -24,6 +26,7 @@ public class RemoveSubscriptionHandler : ICommandHandler<RemoveSubscription>
         if (subscription == null)
             return Unit.Value;
         _paymentDbContext.Subscriptions.Remove(subscription);
+        await _paymentService.RemoveSubProduct(subscription.ProductId);
         await _paymentDbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }

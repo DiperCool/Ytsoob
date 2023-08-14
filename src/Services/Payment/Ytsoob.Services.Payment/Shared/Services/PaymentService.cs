@@ -20,7 +20,7 @@ public class PaymentService : IPaymentService
             }
         );
 
-    private record RecurringResult(decimal Price, int Days, Recurring Recurring);
+    private record RecurringResult(decimal Price, int Month, Recurring Recurring);
 
     public async Task<string> CreateStripeUser(Ytsoober ytsoober)
     {
@@ -34,37 +34,64 @@ public class PaymentService : IPaymentService
         return customer.Id;
     }
 
+    public async Task RemoveSubProduct(string productId)
+    {
+        var service = new ProductService();
+        await service.DeleteAsync(productId);
+    }
+
     public async Task<CreateProductStripeResult> CreateSubProduct(Subscription subscription)
     {
         var options = new ProductCreateOptions
         {
             Name = subscription.Title,
-            Description = subscription.Title,
-            Images = new List<string>() { subscription.Photo ?? "" }
+            Description = subscription.Description,
+            Metadata = new Dictionary<string, string>() { { "SubId", subscription.Id.ToString() } }
         };
+        if (subscription.Photo != null)
+        {
+            options.Images = new List<string>() { subscription.Photo };
+        }
+
         var service = new ProductService();
         Product prodcuct = await service.CreateAsync(options);
         var prices = CalculateRecurringResults(subscription.Price);
 
         IEnumerable<PriceProductResult> pricesResult = await Task.WhenAll(
-            prices.Select(x => CreateRecurringPrice(prodcuct.Id, x.Price, x.Days))
+            prices.Select(x => CreateRecurringPrice(prodcuct.Id, x.Price, x.Month))
         );
 
         return new CreateProductStripeResult(prodcuct.Id, pricesResult);
     }
 
-    private async Task<PriceProductResult> CreateRecurringPrice(string productId, decimal price, int days)
+    public async Task UpdateSubProduct(Subscription subscription)
+    {
+        ProductService service = new ProductService();
+        ProductUpdateOptions options = new ProductUpdateOptions()
+        {
+            Description = subscription.Description,
+            Name = subscription.Title,
+        };
+        if (subscription.Photo != null)
+        {
+            options.Images = new List<string>() { subscription.Photo };
+        }
+
+        await service.UpdateAsync(subscription.ProductId, options);
+    }
+
+    private async Task<PriceProductResult> CreateRecurringPrice(string productId, decimal price, int months)
     {
         PriceService priceService = new PriceService();
         PriceCreateOptions priceCreateOptions = new PriceCreateOptions()
         {
             Product = productId,
-            UnitAmountDecimal = price,
+            UnitAmountDecimal = price * 100,
             Currency = "USD",
-            Recurring = new PriceRecurringOptions() { IntervalCount = days }
+            Recurring = new PriceRecurringOptions() { IntervalCount = months, Interval = "month" }
         };
         Price priceObj = await priceService.CreateAsync(priceCreateOptions);
-        return new PriceProductResult(price, priceObj.Id, days);
+        return new PriceProductResult(price, priceObj.Id, months);
     }
 
     private IEnumerable<RecurringResult> CalculateRecurringResults(decimal oneMonthPrice)

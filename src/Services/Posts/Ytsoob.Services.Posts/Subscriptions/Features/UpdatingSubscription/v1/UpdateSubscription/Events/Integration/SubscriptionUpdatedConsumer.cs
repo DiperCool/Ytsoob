@@ -4,7 +4,7 @@ using Ytsoob.Services.Shared.Subscriptions.Subscriptions.Events.v1.Integration;
 
 namespace Ytsoob.Services.Posts.Subscriptions.Features.UpdatingSubscription.v1.UpdateSubscription.Events.Integration;
 
-public class SubscriptionUpdatedConsumer : IConsumer<SubscriptioUpdatedV1>
+public class SubscriptionUpdatedConsumer : IConsumer<SubscriptionUpdatedV1>
 {
     private ICommandProcessor _commandProcessor;
 
@@ -13,11 +13,11 @@ public class SubscriptionUpdatedConsumer : IConsumer<SubscriptioUpdatedV1>
         _commandProcessor = commandProcessor;
     }
 
-    public async Task Consume(ConsumeContext<SubscriptioUpdatedV1> context)
+    public async Task Consume(ConsumeContext<SubscriptionUpdatedV1> context)
     {
-        SubscriptioUpdatedV1 message = context.Message;
+        SubscriptionUpdatedV1 message = context.Message;
         await _commandProcessor.SendAsync(
-            new UpdateSubscription(message.Id, message.Title, message.Description, message.Photo, message.Price)
+            new UpdateSubscription(message.Id, message.Title, message.Description, message.Photo)
         );
     }
 }

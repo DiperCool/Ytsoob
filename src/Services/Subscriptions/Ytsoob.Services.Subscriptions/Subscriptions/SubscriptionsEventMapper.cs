@@ -21,8 +21,7 @@ public class SubscriptionsEventMapper : IIntegrationEventMapper
         {
             SubscriptionCreatedDomainEvent e
                 => new SubscriptionCreatedV1(e.Id, e.Title, e.Description, e.Photo, e.Price, e.YtsooberId),
-            SubscriptionUpdatedDomainEvent e
-                => new SubscriptioUpdatedV1(e.Id, e.Title, e.Description, e.Photo, e.Price),
+            SubscriptionUpdatedDomainEvent e => new SubscriptionUpdatedV1(e.Id, e.Title, e.Description, e.Photo),
             SubscriptionRemovedDomainEvent e => new SubscriptionRemovedV1(e.Id),
             _ => null
         };

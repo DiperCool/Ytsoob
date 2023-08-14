@@ -43,7 +43,7 @@ internal static class MassTransitExtensions
         );
 
         cfg.ReceiveEndpoint(
-            $"{nameof(Payment).Underscore()}.{nameof(SubscriptioUpdatedV1).Underscore()}",
+            $"{nameof(Payment).Underscore()}.{nameof(SubscriptionUpdatedV1).Underscore()}",
             re =>
             {
                 // turns off default fanout settings
@@ -53,10 +53,10 @@ internal static class MassTransitExtensions
                 re.SetQuorumQueue();
                 re.UseRetry(configurator => configurator.Intervals(TimeSpan.FromSeconds(10)));
                 re.Bind(
-                    $"{nameof(SubscriptioUpdatedV1).Underscore()}.input_exchange",
+                    $"{nameof(SubscriptionUpdatedV1).Underscore()}.input_exchange",
                     e =>
                     {
-                        e.RoutingKey = nameof(SubscriptioUpdatedV1).Underscore();
+                        e.RoutingKey = nameof(SubscriptionUpdatedV1).Underscore();
                         e.ExchangeType = ExchangeType.Direct;
                     }
                 );

@@ -2,6 +2,6 @@ namespace Ytsoob.Services.Subscriptions.Subscriptions.Contracts;
 
 public interface ISubBlobStorage
 {
-    public Task<string?> UploadFile(IFormFile formFile);
-    public Task RemoveFile(string file);
+    Task<string?> UploadFileAsync(IFormFile file, CancellationToken cancellationToken = default);
+    Task RemoveFileAsync(string file, CancellationToken cancellationToken = default);
 }

@@ -2,6 +2,8 @@ using BuildingBlocks.Abstractions.Web.Module;
 using BuildingBlocks.Core;
 using Ytsoob.Services.Subscriptions.Shared.Extensions.WebApplicationBuilderExtensions;
 using Ytsoob.Services.Subscriptions.Shared.Extensions.WebApplicationExtensions;
+using Ytsoob.Services.Subscriptions.Shared.Services;
+using Ytsoob.Services.Subscriptions.Subscriptions.Contracts;
 
 namespace Ytsoob.Services.Subscriptions.Shared;
 
@@ -12,7 +14,7 @@ public class SharedModulesConfiguration : ISharedModulesConfiguration
     public WebApplicationBuilder AddSharedModuleServices(WebApplicationBuilder builder)
     {
         builder.AddInfrastructure();
-
+        builder.Services.AddTransient<ISubBlobStorage, SubBlobStorage>();
         builder.AddStorage();
 
         return builder;

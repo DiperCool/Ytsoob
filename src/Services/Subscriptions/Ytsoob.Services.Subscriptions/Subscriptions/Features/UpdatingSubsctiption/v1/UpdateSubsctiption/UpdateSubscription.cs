@@ -15,10 +15,9 @@ using Ytsoob.Services.Subscriptions.Subscriptions.ValueObjects;
 
 namespace Ytsoob.Services.Subscriptions.Subscriptions.Features.UpdatingSubscription.v1.UpdateSubscription;
 
-public record SubscriptionUpdatedDomainEvent(long Id, string Title, string Description, string? Photo, decimal Price)
-    : DomainEvent;
+public record SubscriptionUpdatedDomainEvent(long Id, string Title, string Description, string? Photo) : DomainEvent;
 
-public record UpdateSubscription(long Id, string Title, string Description, decimal Price) : ITxUpdateCommand;
+public record UpdateSubscription(long Id, string Title, string Description) : ITxUpdateCommand;
 
 public class UpdateSubscriptionValidator : AbstractValidator<UpdateSubscription>
 {
@@ -26,7 +25,6 @@ public class UpdateSubscriptionValidator : AbstractValidator<UpdateSubscription>
     {
         RuleFor(x => x.Title).NotEmpty().MaximumLength(50);
         RuleFor(x => x.Description).NotEmpty().MaximumLength(300);
-        RuleFor(x => x.Price).GreaterThan(0);
     }
 }
 
@@ -90,12 +88,7 @@ public class UpdateSubscriptionHandler : ICommandHandler<UpdateSubscription>
         );
         if (subscription == null)
             throw new SubscriptionNotFoundException(request.Id);
-        subscription.Update(
-            Title.Of(request.Title),
-            Description.Of(request.Description),
-            subscription.Photo,
-            Price.Of(request.Price)
-        );
+        subscription.Update(Title.Of(request.Title), Description.Of(request.Description), subscription.Photo);
         _subscriptionsDbContext.Subscriptions.Update(subscription);
         await _subscriptionsDbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;

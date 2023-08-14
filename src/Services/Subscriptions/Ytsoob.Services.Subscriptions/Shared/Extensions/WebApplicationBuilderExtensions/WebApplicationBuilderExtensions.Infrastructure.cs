@@ -1,3 +1,4 @@
+using BlobStorage;
 using BuildingBlocks.Caching;
 using BuildingBlocks.Caching.Behaviours;
 using BuildingBlocks.Core.IdsGenerator;
@@ -86,7 +87,7 @@ public static partial class WebApplicationBuilderExtensions
         builder.AddCustomVersioning();
         builder.AddCustomSwagger(typeof(SubscriptionsRoot).Assembly);
         builder.Services.AddHttpContextAccessor();
-
+        builder.AddBlobStorage();
         builder.Services.AddCqrs(
             pipelines: new[]
             {

@@ -4,7 +4,7 @@ using Ytsoob.Services.Posts.Shared.Contracts;
 
 namespace Ytsoob.Services.Posts.Subscriptions.Features.UpdatingSubscription.v1.UpdateSubscription;
 
-public record UpdateSubscription(long Id, string Title, string Description, string? Photo, decimal Price) : ICommand;
+public record UpdateSubscription(long Id, string Title, string Description, string? Photo) : ICommand;
 
 public class UpdatedSubscriptionHandler : ICommandHandler<UpdateSubscription>
 {
@@ -23,7 +23,6 @@ public class UpdatedSubscriptionHandler : ICommandHandler<UpdateSubscription>
         );
         if (subscription == null)
             return Unit.Value;
-        subscription.Price = request.Price;
         subscription.Description = request.Description;
         subscription.Photo = request.Photo;
         subscription.Title = request.Title;

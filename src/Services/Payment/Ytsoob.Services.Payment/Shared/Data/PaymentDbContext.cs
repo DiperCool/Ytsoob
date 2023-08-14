@@ -23,4 +23,5 @@ public class PaymentDbContext : EfDbContextBase, IPaymentDbContext
 
     public DbSet<Ytsoober> Ytsoobers => Set<Ytsoober>();
     public DbSet<Subscription> Subscriptions => Set<Subscription>();
+    public DbSet<PriceProduct> PriceProducts => Set<PriceProduct>();
 }

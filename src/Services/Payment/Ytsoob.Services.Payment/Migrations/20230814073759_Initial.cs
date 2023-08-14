@@ -59,7 +59,7 @@ namespace Ytsoob.Services.Payment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "price_product",
+                name: "price_products",
                 columns: table => new
                 {
                     id = table.Column<long>(type: "bigint", nullable: false),
@@ -72,9 +72,9 @@ namespace Ytsoob.Services.Payment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_price_product", x => x.id);
+                    table.PrimaryKey("pk_price_products", x => x.id);
                     table.ForeignKey(
-                        name: "fk_price_product_subscriptions_subscription_id",
+                        name: "fk_price_products_subscriptions_subscription_id",
                         column: x => x.subscriptionid,
                         principalTable: "subscriptions",
                         principalColumn: "id",
@@ -82,8 +82,8 @@ namespace Ytsoob.Services.Payment.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_price_product_subscription_id",
-                table: "price_product",
+                name: "ix_price_products_subscription_id",
+                table: "price_products",
                 column: "subscription_id");
 
             migrationBuilder.CreateIndex(
@@ -96,7 +96,7 @@ namespace Ytsoob.Services.Payment.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "price_product");
+                name: "price_products");
 
             migrationBuilder.DropTable(
                 name: "subscriptions");
